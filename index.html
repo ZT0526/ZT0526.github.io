@@ -78,6 +78,55 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/08/22/thirdArticle/" title="thirdArticle" itemprop="url">thirdArticle</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZT0526" target="_blank" itemprop="author">ZT0526</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-22T03:38:51.000Z" itemprop="datePublished"> Published 2017-08-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/21/firstArticle/" title="动画分享" itemprop="url">动画分享</a>
   </h1>
   <p class="article-author">By
@@ -91,7 +140,7 @@
 </header>
     <div class="article-content">
         
-        <h1 id="动画分享"><a href="#动画分享" class="headerlink" title="动画分享"></a>动画分享</h1><h3 id="Core-Animation结构"><a href="#Core-Animation结构" class="headerlink" title="Core Animation结构"></a>Core Animation结构</h3><p>继承关系<br><img src="media/14806576301514/626233-43bafe84d8aee5bf.png" alt="626233-43bafe84d8aee5bf"></p>
+        <h1 id="动画分享"><a href="#动画分享" class="headerlink" title="动画分享"></a>动画分享</h1><h3 id="Core-Animation结构"><a href="#Core-Animation结构" class="headerlink" title="Core Animation结构"></a>Core Animation结构</h3><p>继承关系<br><img src="firstArticle/626233-43bafe84d8aee5bf.png" alt="626233-43bafe84d8aee5bf"></p>
 <p>其中灰色虚线表示继承关系，红色表示遵守协议。</p>
 <p>核心动画中所有类都遵守CAMediaTiming协议。<br>CAAnaimation是个抽象类，不具备动画效果，必须用它的子类才有动画效果。</p>
 <p>CAAnimationGroup是个动画组，可以同时进行缩放，旋转（同时进行多个动画）。</p>
@@ -397,9 +446,9 @@
 </tbody>
 </table>
 <p>CASpringAnimation是ios9及以上版本才可以使用，想要适配ios9以前版本的话  需要自己动手来完成弹性动画</p>
-<p>阻尼震荡<br><img src="media/14806576301514/496px-Damped_oscillation_graph.svg.png" alt="496px-Damped_oscillation_graph.svg"></p>
-<p><img src="media/14806576301514/D103F63B-50DE-4ED6-97AA-10FD39E4B5DB.png" alt="D103F63B-50DE-4ED6-97AA-10FD39E4B5DB"></p>
-<p><img src="media/14806576301514/14981914785849.png" alt=""></p>
+<p>阻尼震荡<br><img src="firstArticle/496px-Damped_oscillation_graph.svg.png" alt="496px-Damped_oscillation_graph.svg"></p>
+<p><img src="firstArticle/D103F63B-50DE-4ED6-97AA-10FD39E4B5DB.png" alt="D103F63B-50DE-4ED6-97AA-10FD39E4B5DB"></p>
+<p><img src="firstArticle/14981914785849.png" alt=""></p>
 <p>参考资料<a href="http://kittenyang.com/deformationandgooey/" target="_blank" rel="external">粘性动画</a></p>
 <p><a href="http://kittenyang.com/deformationandgooey/" target="_blank" rel="external">查看数学函数对应的图像的网站</a></p>
 <h3 id="CAKeyframeAnimation-关键帧动画"><a href="#CAKeyframeAnimation-关键帧动画" class="headerlink" title="CAKeyframeAnimation 关键帧动画"></a>CAKeyframeAnimation 关键帧动画</h3><table>
@@ -434,7 +483,7 @@
 </table>
 <h4 id="AnimationWithKeyPath的值"><a href="#AnimationWithKeyPath的值" class="headerlink" title="AnimationWithKeyPath的值"></a>AnimationWithKeyPath的值</h4><p>属性后面的描述中带有Animatable的都可以作为keyPath<br>如CAlayer的transform，position等等</p>
 <h3 id="水波动画"><a href="#水波动画" class="headerlink" title="水波动画"></a>水波动画</h3><p>正弦型函数解析式：y=Asin（ωx+φ）+h<br>各常数值对函数图像的影响：<br>φ（初相位）：决定波形与X轴位置关系或横向移动距离（左加右减）<br>ω：决定周期（最小正周期T=2π/|ω|）<br>A：决定峰值（即纵向拉伸压缩的倍数）<br>h：表示波形在Y轴的位置关系或纵向移动距离（上加下减）</p>
-<h3 id="CATransFrom3D"><a href="#CATransFrom3D" class="headerlink" title="CATransFrom3D"></a>CATransFrom3D</h3><p>iOS设备上，是按照左手系的三维空间，即正面面对设备屏幕，坐标原点从屏幕左上方起，x轴指向右方，y轴指向下方，z轴为屏幕指向眼球。而macOS上是右手系，原点是屏幕左下角，x轴指向右方，y轴指向上方（相反），z轴同样为屏幕指向眼球，要注意<br><img src="media/14806576301514/5c010c6b630ab7aa0892428016d7e.jpeg" alt="5c010c6b630ab7aa0892428016d7e"></p>
+<h3 id="CATransFrom3D"><a href="#CATransFrom3D" class="headerlink" title="CATransFrom3D"></a>CATransFrom3D</h3><p>iOS设备上，是按照左手系的三维空间，即正面面对设备屏幕，坐标原点从屏幕左上方起，x轴指向右方，y轴指向下方，z轴为屏幕指向眼球。而macOS上是右手系，原点是屏幕左下角，x轴指向右方，y轴指向上方（相反），z轴同样为屏幕指向眼球，要注意<br><img src="firstArticle/5c010c6b630ab7aa0892428016d7e.jpeg" alt="5c010c6b630ab7aa0892428016d7e"></p>
 <p>3D效果中平移、旋转、缩放、都是通过矩阵的变换得到的</p>
 <pre><code>CATransform3D结构体
 struct CATransform3D
@@ -444,21 +493,21 @@ struct CATransform3D
   CGFloat m31, m32, m33, m34;
   CGFloat m41, m42, m43, m44;
 };
-</code></pre><p>这个结构体对应这样一个4x4的矩阵<br><img src="media/14806576301514/C8B0A3D9-796D-40BF-A5A8-7AB02E249230.png" alt="C8B0A3D9-796D-40BF-A5A8-7AB02E249230"></p>
-<p><img src="media/14806576301514/4196_131230104304_1.png" alt="4196_131230104304_1"></p>
+</code></pre><p>这个结构体对应这样一个4x4的矩阵<br><img src="firstArticle/C8B0A3D9-796D-40BF-A5A8-7AB02E249230.png" alt="C8B0A3D9-796D-40BF-A5A8-7AB02E249230"></p>
+<p><img src="firstArticle/4196_131230104304_1.png" alt="4196_131230104304_1"></p>
 <p>这里的矩阵变换主要是两个矩阵相乘，将坐标向量乘以变换的矩阵，得到变换后的坐标。</p>
-<p><img src="media/14806576301514/4196_131230104316_1.png" alt="4196_131230104316_1"></p>
-<p>1.平移<br><img src="media/14806576301514/2766C09E-7B01-48C2-B42B-77A1E56B29FB.png" alt="2766C09E-7B01-48C2-B42B-77A1E56B29FB"></p>
+<p><img src="firstArticle/4196_131230104316_1.png" alt="4196_131230104316_1"></p>
+<p>1.平移<br><img src="firstArticle/2766C09E-7B01-48C2-B42B-77A1E56B29FB.png" alt="2766C09E-7B01-48C2-B42B-77A1E56B29FB"></p>
 <pre><code>对应API:
 CATransform3D CATransform3DMakeTranslation(CGFloat tx, CGFloat ty, CGFloat tz);
-</code></pre><p>2.缩放<br><img src="media/14806576301514/BDCEC978-9B92-4149-8530-148A80C22C6B.png" alt="BDCEC978-9B92-4149-8530-148A80C22C6B"></p>
+</code></pre><p>2.缩放<br><img src="firstArticle/BDCEC978-9B92-4149-8530-148A80C22C6B.png" alt="BDCEC978-9B92-4149-8530-148A80C22C6B"></p>
 <pre><code>对应API:
 CATransform3D CATransform3DMakeScale(CGFloat sx, CGFloat sy, CGFloat sz);
-</code></pre><p>3.旋转<br><img src="media/14806576301514/59C76777-3EEB-4887-9C0E-18E6B3163D4E.png" alt="59C76777-3EEB-4887-9C0E-18E6B3163D4E"></p>
+</code></pre><p>3.旋转<br><img src="firstArticle/59C76777-3EEB-4887-9C0E-18E6B3163D4E.png" alt="59C76777-3EEB-4887-9C0E-18E6B3163D4E"></p>
 <p>4.为什么设置m34<br>当我们要实现近大远小的效果的时候，为什么只需要设置m34的值就可以了？</p>
 <p>透视投影</p>
 <pre><code>眼睛从实际平行的两条线段发出（相当于z轴方向的向量），人眼看起来会相交于一点上（焦点，Focal point），这才产生了3D感
-</code></pre><p><img src="media/14806576301514/a7ed0efe4aebcddaef0d090c631b4.jpeg.png" alt="a7ed0efe4aebcddaef0d090c631b4.jpeg"></p>
+</code></pre><p><img src="firstArticle/a7ed0efe4aebcddaef0d090c631b4.jpeg.png" alt="a7ed0efe4aebcddaef0d090c631b4.jpeg"></p>
 <p>m34 = -1 / d (d值的是人眼到屏幕的距离,值一般在500 - 1000之间比较合适)；</p>
 <p><a href="http://dreampiggy.com/2016/11/01/core-animation-3dfang-she-bian-huan-zhi-shi/" target="_blank" rel="external">Core Animation 3D仿射变换知识</a></p>
 <h3 id="ios7之后提供的物理动效"><a href="#ios7之后提供的物理动效" class="headerlink" title="ios7之后提供的物理动效"></a>ios7之后提供的物理动效</h3><p>UIGravityBehavior 重力<br>UICollisionBehavior 碰撞<br>UISnapBehavior    吸附<br>UIPushBehavior    推力<br>UIAttachmentBehavior 关联</p>
