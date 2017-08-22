@@ -1,0 +1,578 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>从OC到Swift3.0 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZT0526">
+    
+
+    
+    <meta name="description" content="#基础部分 ##值的声明在Swift中对值的声明使用的是var、let. 使用var声明的值，是一个变量，值是可以被修改的，let声明的值，是一个常量,值一旦被指定就不可以被修改 12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0 在Swift中可以自动去推断数据的类型 无需指定，上面的两个数据类型都是一个整数。这一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从OC到Swift3.0">
+<meta property="og:url" content="https://zt0526.github.io/2017/08/22/secoendArticle/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#基础部分 ##值的声明在Swift中对值的声明使用的是var、let. 使用var声明的值，是一个变量，值是可以被修改的，let声明的值，是一个常量,值一旦被指定就不可以被修改 12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0 在Swift中可以自动去推断数据的类型 无需指定，上面的两个数据类型都是一个整数。这一">
+<meta property="og:updated_time" content="2017-08-22T03:47:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从OC到Swift3.0">
+<meta name="twitter:description" content="#基础部分 ##值的声明在Swift中对值的声明使用的是var、let. 使用var声明的值，是一个变量，值是可以被修改的，let声明的值，是一个常量,值一旦被指定就不可以被修改 12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0 在Swift中可以自动去推断数据的类型 无需指定，上面的两个数据类型都是一个整数。这一">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zt0526.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/22/secoendArticle/" title="从OC到Swift3.0" itemprop="url">从OC到Swift3.0</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZT0526" target="_blank" itemprop="author">ZT0526</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-22T03:47:40.000Z" itemprop="datePublished"> Published 2017-08-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可选类型以及隐式可选类型"><span class="toc-number">1.</span> <span class="toc-text">可选类型以及隐式可选类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#可选类型"><span class="toc-number">1.1.</span> <span class="toc-text">可选类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#强制解析"><span class="toc-number">1.2.</span> <span class="toc-text">强制解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式可选类型"><span class="toc-number">1.2.1.</span> <span class="toc-text">隐式可选类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#控制流"><span class="toc-number">2.</span> <span class="toc-text">控制流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if语句"><span class="toc-number">2.1.</span> <span class="toc-text">if语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch"><span class="toc-number">2.2.</span> <span class="toc-text">Switch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#区间匹配"><span class="toc-number">2.2.1.</span> <span class="toc-text">区间匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复合匹配"><span class="toc-number">2.2.2.</span> <span class="toc-text">复合匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-Switch-语句匹配枚举值"><span class="toc-number">2.2.3.</span> <span class="toc-text">使用 Switch 语句匹配枚举值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#忽略参数标签"><span class="toc-number">3.1.</span> <span class="toc-text">忽略参数标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数中参数的修改"><span class="toc-number">3.2.</span> <span class="toc-text">函数中参数的修改</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#闭包"><span class="toc-number">4.</span> <span class="toc-text">闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包表达式语法"><span class="toc-number">4.1.</span> <span class="toc-text">闭包表达式语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尾随闭包"><span class="toc-number">4.2.</span> <span class="toc-text">尾随闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逃逸闭包"><span class="toc-number">4.3.</span> <span class="toc-text">逃逸闭包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#协议"><span class="toc-number">5.</span> <span class="toc-text">协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类"><span class="toc-number">6.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#属性"><span class="toc-number">7.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#存储属性"><span class="toc-number">7.1.</span> <span class="toc-text">存储属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性"><span class="toc-number">7.2.</span> <span class="toc-text">计算属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">8.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展语法"><span class="toc-number">8.1.</span> <span class="toc-text">扩展语法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多线程"><span class="toc-number">9.</span> <span class="toc-text">多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSThread"><span class="toc-number">9.1.</span> <span class="toc-text">NSThread</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GCD"><span class="toc-number">9.2.</span> <span class="toc-text">GCD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSOperation-amp-NSOperationQueue"><span class="toc-number">9.3.</span> <span class="toc-text">NSOperation & NSOperationQueue</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开发模式"><span class="toc-number">10.</span> <span class="toc-text">开发模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单例"><span class="toc-number">10.1.</span> <span class="toc-text">单例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVO"><span class="toc-number">10.2.</span> <span class="toc-text">KVO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通知"><span class="toc-number">10.3.</span> <span class="toc-text">通知</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代理"><span class="toc-number">10.4.</span> <span class="toc-text">代理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习网站"><span class="toc-number">11.</span> <span class="toc-text">学习网站</span></a></li></ol>
+		
+		</div>
+		
+		<p>#基础部分</p>
+<p>##值的声明<br>在Swift中对值的声明使用的是var、let. 使用var声明的值，是一个变量，值是可以被修改的，let声明的值，是一个常量,值一旦被指定就不可以被修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let maximumNumberOfLoginAttempts = 10</div><div class="line">var currentLoginAttempt = 0</div></pre></td></tr></table></figure>
+<p>在Swift中可以自动去推断数据的类型 无需指定，上面的两个数据类型都是一个整数。这一点在OC中是没有的</p>
+<p>##类型标注<br>声明数据的时候为了指定数据的类型，可以在变量名或常量名的后面加上“： ”(冒号和一个空格)然后在跟上类型名。如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let nameExplicit: String = &quot;Whoopie Cushion&quot;</div></pre></td></tr></table></figure>
+<p>##常量和变量的名字<br>常量与变量名不能包含数学符号，箭头，保留的（或者非法的）Unicode 码位，连线与制表符。也不能以数字开头，但是可以在常量与变量名的其他地方包含数字。可以用包括unicode以及其他的字符来作为变量名。<br>//变量名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let π = 3.14159</div><div class="line">let 你好 = &quot;你好啊&quot;</div><div class="line">let 🐶🐮 = &quot;dogcow&quot;</div></pre></td></tr></table></figure>
+<p>##布尔值<br>在Swift中的bool值是true和false，而不是OC中的YES和NO<br>let onSaleInferred = true<br>let onSaleExplicit: Bool = false</p>
+<p>##打印输出<br>在Swift中的打印输出使用的是print，也可以兼容使用NSlog<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">print(10)</div><div class="line">print(&quot;this is \(10)&quot;) //将值转化为字符串，需要将值写在括号中并在前面加上斜杠”\”</div><div class="line"></div><div class="line">//格式化打印</div><div class="line">print(String.init(format: &quot;%@ %@ %.2f&quot;, &quot;asd&quot;,&quot;dd&quot;,10.123))</div><div class="line">print(&quot;this is \(String.init(format: &quot;%@ %@ %.2f&quot;, &quot;asd&quot;,&quot;dd&quot;,10.123))&quot;)</div><div class="line">也可以使用</div><div class="line">NSLog(&quot;this is %@ %.f&quot;, &quot;asd&quot;,&quot;1.12&quot;)</div></pre></td></tr></table></figure></p>
+<p>##基本运算符<br>除了OC中已有的运算符:赋值运算符、比较运算符、逻辑运算符、组合赋值运算符、三目运算符之外，在Swift中还多了一些运算符：</p>
+<p>##空合运算符（Nil Coalescing Operator）<br>空合运算符（a ?? b）将对可选类型 a 进行空判断，如果 a 包含一个值就进行解封，否则就返回一个默认值 b。表达式 a 必须是 可选类型。默认值 b 的类型必须要和 a 存储值的类型保持一致。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let defaultColorName = &quot;red&quot;</div><div class="line">var userDefinedColorName: String?   //默认值为 nil</div><div class="line">var colorNameToUse = userDefinedColorName ?? defaultColorName</div></pre></td></tr></table></figure>
+<p>##区间运算符<br>闭区间运算符”a…b”定义一个包含从 a 到 b（包括 a 和 b）的所有值的区间。a 的值不能超过 b。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for i in 1...5 &#123;</div><div class="line">    print(&quot;\(i)&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##半开区间运算符<br>半开区间运算符（a..<b）定义一个从 a="" 到="" b="" 但不包括="" 的区间。="" 之所以称为半开区间，是因为该区间包含第一个值而不包括最后的值="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for i in 5..&lt;10&#123;</div><div class="line">    print(&quot;\(i)&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></b）定义一个从></p>
+<p>区间运算符和半开区间运算符主要用在for-in循环中<br>数据类型<br>Swift 包含了 C 和 Objective-C 上所有基础数据类型，Int表示整型值； Double 和 Float 表示浮点型值； Bool 是布尔型值；String 是文本型数据。 Swift 还提供了三个基本的集合类型，Array ，Set 和 Dictionary 。在使用的时候必须指定集合中的数据类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//Array</div><div class="line">var shoppingList: [String] = [&quot;Eggs&quot;, &quot;Milk&quot;]</div><div class="line">//Dictionary</div><div class="line">var dic = Dictionary&lt;NSObject,AnyObject&gt;()</div><div class="line">//Set</div><div class="line">var letters = Set&lt;Character&gt;()</div></pre></td></tr></table></figure></p>
+<p>##可变性<br>swift<br>如果创建一个Array、String、Set或Dictionary并且把它分配成一个变量，这个是可变的。这意味着我们可以在创建之后添加更多或移除已存在的数据项，或者改变其中的数据项。如果我们把Array、String、Set或Dictionary分配成常量，那么它就是不可变的，它的大小和内容都不能被改变。</p>
+<p>OC<br>字符串、数组、字典、集合都有专门的不可变的类NSArray; NSDictionary; NSSet; NSString;以及可变类 NSMutableArray;NSMutableDictionary; NSMutableSet; NSMutableString; </p>
+<p>可以看到swift更加简化了数据的类型,不会专门的去设置可变类和不可变类。(目前为了兼容性，在Swift的代码中还是可以使用NSArray、NSMutableArray等类)</p>
+<p>##字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Swift中字符串初始化</div><div class="line">var emptyString = &quot;&quot;               // 空字符串字面量</div><div class="line">var anotherEmptyString = String()  // 初始化方法</div><div class="line">其它的初始化方法…</div><div class="line"></div><div class="line">//判断是否为空</div><div class="line">if emptyString.isEmpty &#123;</div><div class="line">    print(&quot;Nothing to see here&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">字符串拼接的拼接可以使用”+”来完成</div><div class="line">let string1 = &quot;hello&quot;</div><div class="line">let string2 = &quot; there&quot;</div><div class="line">var welcome = string1 + string2</div></pre></td></tr></table></figure></p>
+<p>##数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">//创建数组</div><div class="line">var shoppingList: [String] = [&quot;Eggs&quot;, &quot;Milk&quot;]</div><div class="line">shoppingList[0...1] = [&quot;Bananas&quot;, &quot;Apples&quot;]</div><div class="line"></div><div class="line">//判断数组是否为空</div><div class="line">if shoppingList.isEmpty&#123;</div><div class="line">    print(&quot;kong&quot;)</div><div class="line">&#125;else&#123;</div><div class="line">    print(&quot;feikong&quot;)</div><div class="line">&#125;</div><div class="line">//添加数据</div><div class="line">shoppingList += [&quot;haha&quot;]//添加数据</div><div class="line">//遍历</div><div class="line">for item in shoppingList&#123;</div><div class="line">    print(item)</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (index, value) in shoppingList.enumerated() &#123;</div><div class="line">    print(&quot;Item \(String(index + 1)): \(value)&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">包含任意类型的数组</div><div class="line">var array2: [Any] = [Any]()</div><div class="line">array2.append(1)</div><div class="line">array2.append(2.0)</div><div class="line">array2.append([3,4])</div><div class="line">array2.append(&quot;asdasd&quot;)</div><div class="line">array2.append([&quot;key1&quot;:&quot;value1&quot;,&quot;key2&quot;:&quot;value2&quot;])</div><div class="line">array2.append(sunClass2)</div><div class="line"></div><div class="line">for iterm in array2&#123;</div><div class="line">    print(&quot;this is \(iterm)&quot;)</div><div class="line">&#125;</div><div class="line">Any:可以表示任何类型，包括函数类型</div><div class="line">AnyObject:可以表示任何类类型的实例</div></pre></td></tr></table></figure>
+<p>##字典<br>字典不再是像OC中那样用大括号括起来字典不再是像OC中用大括号括起来{“key1”:”value1”,”key2”:”value2”},而是使用中括号 [“key1”:”value1”,”key2”:”value2”]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">字典的创建</div><div class="line">var airports: [String: String] = [&quot;YYZ&quot;: &quot;Toronto Pearson&quot;, &quot;DUB&quot;: &quot;Dublin&quot;]</div><div class="line"></div><div class="line">//字典中某个value的访问</div><div class="line">airports[&quot;DUB&quot;]</div><div class="line"></div><div class="line">//增加</div><div class="line">airports[&quot;asd&quot;] = &quot;asd&quot;</div><div class="line">//更新</div><div class="line">airports.updateValue(&quot;Dublin Airport&quot;, forKey: &quot;DUB&quot;)</div><div class="line">//删除</div><div class="line">airports.removeValue(forKey: &quot;DUB&quot;)</div></pre></td></tr></table></figure>
+<p></p>
+<p>##类型转换</p>
+<p>###as? as!<br>某类型的一个常量或变量可能在幕后实际上属于一个子类。当确定是这种情况时，用类型转换操作符（as? 或 as!）。</p>
+<p>条件形式as? 返回一个你试图向下转成的类型的可选值。强制形式 as! 把试图向下转型并强制解包。<br>当你不确定向下转型可以成功时，用类型转换的条件形式（as?）。条件形式的类型转换总是返回一个可选值，并且若下转是不可能的，可选值将是 nil。这使你能够检查向下转型是否成功。<br>只有你可以确定向下转型一定会成功时，才使用强制形式（as!）。当你试图向下转型为一个不正确的类型时，强制形式的类型转换会触发一个运行时错误。</p>
+<p>###as<br>向上类型转换，从一个派生类转换为基类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var num1 = 1 as Double//num1是一个值为1的浮点数变量</div><div class="line">var num2 = 2 as Int//num2是一个值为2的整型变量</div><div class="line"></div><div class="line"></div><div class="line">class father&#123;</div><div class="line">    let f = 1</div><div class="line">&#125;</div><div class="line">class sun: father&#123;</div><div class="line">    let s = 2</div><div class="line">&#125;</div><div class="line">var sunClass = sun()</div><div class="line">sunClass is sun</div><div class="line"></div><div class="line">var sunClass2 = sunClass as father</div><div class="line">print(&quot;this is \(sunClass2.s)&quot;) //报错</div><div class="line">print(&quot;this is \(sunClass2.f)&quot;) //不会报错,打印2</div></pre></td></tr></table></figure></p>
+<h1 id="可选类型以及隐式可选类型"><a href="#可选类型以及隐式可选类型" class="headerlink" title="可选类型以及隐式可选类型"></a>可选类型以及隐式可选类型</h1><h2 id="可选类型"><a href="#可选类型" class="headerlink" title="可选类型"></a>可选类型</h2><p>在Swift中使用可选类型来处理值有可能缺失的情况,这是C语音和OC都没有的，但这有点像Objective-C 中的一个特性，一个方法要不返回一个对象要不返回nil，nil表示“缺少一个合法的对象”</p>
+<p>被声明为可选类型的变量或者常量只可能有两种值:一、有值，等于xxx 二、没有值，即Swift中的nil</p>
+<p>如果你声明一个可选常量或者变量但是没有赋值，它们会自动被设置为 nil,如果给它们赋值失败，它们的值还是nil：<br>var surveyAnswer: String?<br>// surveyAnswer 被自动设置为 nil</p>
+<p>如果给可选常量或变量赋值成功,它们的值不是nil了<br>surveyAnswer  = “haha”</p>
+<h2 id="强制解析"><a href="#强制解析" class="headerlink" title="强制解析"></a>强制解析</h2><p>当你确定可选类型确实包含值之后，你可以在可选的名字后面加一个感叹号（!）来获取值。这个惊叹号表示“我知道这个可选有值，请使用它。”这被称为可选值的强制解析（forced unwrapping）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let assumedString: String? = &quot;An implicitly unwrapped optional string.&quot;</div><div class="line">let str1 = assumedString!</div></pre></td></tr></table></figure>
+<p>如果上面的这个可选类型常量没有值 那么就会报错</p>
+<h3 id="隐式可选类型"><a href="#隐式可选类型" class="headerlink" title="隐式可选类型"></a>隐式可选类型</h3><p>有时候在程序架构中，第一次被赋值之后，可以确定一个可选类型总会有值。这种情况下就不用去每次解析和判断可选类型了,因此Swift还提供了隐式可选类型来处理一个可选类型第一次被复制后就总会有值得情况。</p>
+<p>在获取隐式可选类型的值的时候，不需要再后面加上”!”来强制解析<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let fullName: String! = &quot;John Appleseed&quot;</div><div class="line">let str2 = fullName</div></pre></td></tr></table></figure></p>
+<p>下面的例子展示了可选类型 String 和隐式解析可选类型 String 之间的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let possibleString: String? = &quot;An optional string.&quot;</div><div class="line">let forcedString: String = possibleString! // 需要感叹号来获取值</div><div class="line"></div><div class="line">let assumedString: String! = &quot;An implicitly unwrapped optional string.&quot;</div><div class="line">let implicitString: String = assumedString  // 不需要感叹号</div></pre></td></tr></table></figure></p>
+<p>注意:在使用可选类型或隐式可选类型的常量或变量之前都要将它们初始化，不然会报错</p>
+<h1 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h1><h2 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h2><p>在Swift中if语句后的判断条件无需用括号括起来<br>for-in循环<br>在Swift中的for循环是这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for index in 0...3 &#123;</div><div class="line">    print(&quot;index is \(index)&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>//index的值不需要声明, 只需要将它包含在循环的声明中，就可以对其进行隐式声明。如果不需要它的值,还可以将其用”_”来代替<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let base = 3</div><div class="line">let power = 10</div><div class="line">var answer = 1</div><div class="line">for _ in 1...power &#123;</div><div class="line">    answer *= base</div><div class="line">&#125;</div><div class="line"></div><div class="line">而不是OC、C中的</div><div class="line">for(int i = 0 ; i &lt; 5; i++)&#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>##While循环<br>while循环从计算一个条件开始。如果条件为true，会重复运行一段语句，直到条件变为false。<br>下面是 while 循环的一般格式：<br>while condition {<br>    statements<br>}<br>Repeat-While<br>while循环的另外一种形式是repeat-while，它和while的区别是在判断循环条件之前，先执行一次循环的代码块。然后重复循环直到条件为false。</p>
+<p>Swift语言的repeat-while循环和其他语言中的do-while循环是类似的。<br>下面是 repeat-while循环的一般格式：<br>repeat {<br>    statements<br>} while condition
+</p>
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><p>与 C 和 Objective-C 中的switch语句不同，在 Swift 中，当匹配的 case 分支中的代码执行完毕后，程序会终止switch语句，而不会继续执行下一个 case 分支。这也就是说，不需要在 case 分支中显式地使用break语句。这使得switch语句更安全、更易用，也避免了因忘记写break语句而产生的错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let anotherCharacter: Character = &quot;a&quot;</div><div class="line">switch anotherCharacter &#123;</div><div class="line">case &quot;a&quot;: </div><div class="line">	 print(&quot;The letter a&quot;)</div><div class="line">case &quot;A&quot;:</div><div class="line">    print(&quot;The letter A&quot;)</div><div class="line">default:</div><div class="line">    print(&quot;Not the letter A&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在OC中,Swtich只支持int类型,char类型作为匹配。而在Swift中作为匹配的类型更加丰富多样，不仅仅支持 int类型和char类型，还可以是浮点型、字符串、区间、元组、枚举值等。在Swift中Switch可以匹配的类型很多，这样就可以将一些繁杂的if判断语句简化</p>
+<p>###匹配字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">let carName = &quot;asd&quot;</div><div class="line">switch carName&#123;</div><div class="line">case &quot;Six&quot;,&quot;asd&quot;:</div><div class="line">    print(&quot;this is Six&quot;)</div><div class="line">case &quot;Seven&quot;:</div><div class="line">    print(&quot;this is Seven&quot;)</div><div class="line">case &quot;Eight&quot;:</div><div class="line">    print(&quot;this is Eight&quot;)</div><div class="line">case &quot;Night&quot;:</div><div class="line">    print(&quot;this is Night&quot;)</div><div class="line">default:</div><div class="line">    print(&quot;nothing&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>//打印this is Six</p>
+<p>//匹配浮点数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let value = 5.0;</div><div class="line">switch value &#123;</div><div class="line">case 1.0:</div><div class="line">    print(&quot;this is 1.0&quot;)</div><div class="line">case 2.0:</div><div class="line">    print(&quot;this is 2.0&quot;)</div><div class="line">case 5.0:</div><div class="line">    print(&quot;this is 5.0&quot;)</div><div class="line">default:</div><div class="line">    print(&quot;others&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>//打印this is 5.0</p>
+<h3 id="区间匹配"><a href="#区间匹配" class="headerlink" title="区间匹配"></a>区间匹配</h3><p>case 分支的模式也可以是一个值的区间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">let approximateCount = 62</div><div class="line">let countedThings = &quot;moons orbiting Saturn&quot;</div><div class="line">var naturalCount: String</div><div class="line">switch approximateCount &#123;</div><div class="line">case 0:</div><div class="line">    naturalCount = &quot;no&quot;</div><div class="line">case 1..&lt;5:</div><div class="line">    naturalCount = &quot;a few&quot;</div><div class="line">case 5..&lt;12:</div><div class="line">    naturalCount = &quot;several&quot;</div><div class="line">case 12..&lt;100:</div><div class="line">    naturalCount = &quot;dozens of&quot;</div><div class="line">case 100..&lt;1000:</div><div class="line">    naturalCount = &quot;hundreds of&quot;</div><div class="line">default:</div><div class="line">    naturalCount = &quot;many&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="复合匹配"><a href="#复合匹配" class="headerlink" title="复合匹配"></a>复合匹配</h3><p>当多个条件可以使用同一种方法来处理时，可以将这几种可能放在同一个case后面，并且用逗号隔开。当case后面的任意一种模式匹配的时候，这条分支就会被匹配。并且，如果匹配列表过长，还可以分行书写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let someCharacter: Character = &quot;e&quot;</div><div class="line">switch someCharacter &#123;</div><div class="line">case &quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;:</div><div class="line">    print(&quot;\(someCharacter) is a vowel&quot;)</div><div class="line">case &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;,</div><div class="line">     &quot;n&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;:</div><div class="line">    print(&quot;\(someCharacter) is a consonant&quot;)</div><div class="line">default:</div><div class="line">    print(&quot;\(someCharacter) is not a vowel or a consonant&quot;)</div><div class="line">&#125;</div><div class="line">// 输出 &quot;e is a vowel&quot;</div></pre></td></tr></table></figure>
+<h3 id="使用-Switch-语句匹配枚举值"><a href="#使用-Switch-语句匹配枚举值" class="headerlink" title="使用 Switch 语句匹配枚举值"></a>使用 Switch 语句匹配枚举值</h3><p>你可以使用switch语句匹配单个枚举值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">directionToHead = .south</div><div class="line">switch directionToHead &#123;</div><div class="line">    case .north:</div><div class="line">        print(&quot;Lots of planets have a north&quot;)</div><div class="line">    case .south:</div><div class="line">        print(&quot;Watch out for penguins&quot;)</div><div class="line">    case .east:</div><div class="line">        print(&quot;Where the sun rises&quot;)</div><div class="line">    case .west:</div><div class="line">        print(&quot;Where the skies are blue&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>对于在OC中,方法有两种类型,类方法与实例方法。方法的组成由方法名,参数,返回值组成。<br>在Swift中函数的定义基本与OC一样。<br>主要区别为：<br>1    通过func关键词定义函数<br>2    返回值在-&gt;关键词后标注<br>各举一个类方法与实例方法例子。</p>
+<ul>
+<li>(UIColor*)blackColor</li>
+</ul>
+<ul>
+<li>(void)addSubview:(UIView *)view<br>对应的swift版本<br>class func blackColor() -&gt; UIColor //类方法, 通过 class func或者static func 关键词声明，class func声明的方法可以被子类重写<br>func addSubview(view: UIView) //实例方法</li>
+</ul>
+<h2 id="忽略参数标签"><a href="#忽略参数标签" class="headerlink" title="忽略参数标签"></a>忽略参数标签</h2><p>如果你不希望为某个参数添加一个标签，可以使用一个下划线(<em>)来代替一个明确的参数标签。<br>func someFunction(</em> firstParameterName: Int, secondParameterName: Int) {<br>     // 在函数体内，firstParameterName 和 secondParameterName 代表参数中的第一个和第二个参数值<br>}<br>someFunction(1, secondParameterName: 2)<br>如果一个参数有一个标签，那么在调用的时候必须使用标签来标记这个参数。</p>
+<h2 id="函数中参数的修改"><a href="#函数中参数的修改" class="headerlink" title="函数中参数的修改"></a>函数中参数的修改</h2><p>oc中参数在函数体内是可以修改其值的，因为其作用类似于局部变量。但是在swift中，参数默认都是常量参数，不能在函数体内修改参数值。如果需要在函数体内修改参数值，则需要定义变量参数，即在参数名前加var关键字即可。</p>
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>闭包是自包含的函数代码块，可以在代码中被传递和使用。Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）比较相似。</p>
+<h2 id="闭包表达式语法"><a href="#闭包表达式语法" class="headerlink" title="闭包表达式语法"></a>闭包表达式语法</h2><p>闭包表达式语法有如下的一般形式：<br>{ (parameters) -&gt; returnType in<br>    statements<br>}</p>
+<p>在OC中我们更多的会使用block来进行完成复杂的操作，比如异步网络请求得到Json数据后，需要将Json转化为数据模型的对象、又或者是跨视图层级来完成数据处理、视图动画的执行等等。在Swift中闭包能够实现block所能实现的功能。</p>
+<h2 id="尾随闭包"><a href="#尾随闭包" class="headerlink" title="尾随闭包"></a>尾随闭包</h2><p>如果你需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。在使用尾随闭包时，你不用写出它的参数标签:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">func someFunctionThatTakesAClosure(closure: () -&gt; Void) &#123;</div><div class="line">    // 函数体部分</div><div class="line">&#125;</div><div class="line"></div><div class="line">//不使用尾随闭包进行函数调用</div><div class="line">someFunctionThatTakesAClosure(closure: &#123;</div><div class="line">    // 闭包主体部分</div><div class="line">&#125;)</div><div class="line"></div><div class="line">//使用尾随闭包进行函数调用</div><div class="line">someFunctionThatTakesAClosure() &#123;</div><div class="line">    // 闭包主体部分</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="逃逸闭包"><a href="#逃逸闭包" class="headerlink" title="逃逸闭包"></a>逃逸闭包</h2><p>当一个闭包作为参数传到一个函数中，但是这个闭包在函数返回之后才被执行，我们称该闭包从函数中逃逸。当你定义接受闭包作为参数的函数时，你可以在参数名之前标注 @escaping，用来指明这个闭包是允许“逃逸”出这个函数的。<br>一种能使闭包“逃逸”出函数的方法是，将这个闭包保存在一个函数外部定义的变量中。举个例子，很多启动异步操作的函数接受一个闭包参数作为 异步操作完成的处理。这类函数会在异步操作开始之后立刻返回，但是闭包直到异步操作结束后才会被调用。在这种情况下，闭包需要“逃逸”出函数，因为闭包需要在函数返回之后被调用。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var x:String?</div><div class="line">var completionHandlers:() -&gt; Void</div><div class="line">func someFunctionWithEscapingClosure(completionHandler: @escaping (String) -&gt; Void) &#123;</div><div class="line">    //异步操作</div><div class="line">    print(&quot;这里可以执行异步操作&quot;)</div><div class="line">    </div><div class="line">    //返回时调用</div><div class="line">    completionHandler(&quot;123456&quot;)</div><div class="line">&#125;</div><div class="line">someFunctionWithEscapingClosure(completionHandler: &#123;(str: String) -&gt; Void</div><div class="line">in</div><div class="line">    x = str</div><div class="line">&#125;)</div><div class="line">print(x)</div></pre></td></tr></table></figure>
+<p>#指针<br>在Swift这门语言中，会尽量去避免你去直接使用指针。但是还是会提供各种与c语言相对应的指针以供开发者在需要的是时候使用。具体的可以看<a href="https://developer.apple.com/library/prerelease/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithCAPIs.html" target="_blank" rel="external">https://developer.apple.com/library/prerelease/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithCAPIs.html</a></p>
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><p>语法:<br>在Objective-C中我们这么声明Protocol:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@protocol SampleProtocol</div><div class="line">- (void)someMethod;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>而在Swift中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">protocol SampleProtocol </div><div class="line">&#123;</div><div class="line">    func someMethod()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在Swift遵循协议:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class AnotherClass: SomeSuperClass, SampleProtocol</div><div class="line">&#123;</div><div class="line">    func someMethod() &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么之前Objective-C的protocol中,我们可以标志optional。在Swift中没有optional这样的标志。</p>
+<p>在Swift中protocol很强大，class、enum、struct、extention都可以遵守协议</p>
+<p>让枚举遵守一个协议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">enum testEnum:MyProtocol &#123;</div><div class="line">    internal func test() &#123;</div><div class="line">        print(&quot;this is enum&quot;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    case one</div><div class="line">    case two</div><div class="line">&#125;</div><div class="line"></div><div class="line">let testEnum1 = testEnum.one</div><div class="line">testEnum1.test()</div><div class="line">//输出this is enum</div></pre></td></tr></table></figure></p>
+<p>结构体遵守一个协议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct testStruct:MyProtocol&#123;</div><div class="line">    func test() &#123;</div><div class="line">        print(&quot;this is struct&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">let testStruct1 = testStruct()</div><div class="line">testStruct1.test()</div><div class="line">//输出this is struct</div></pre></td></tr></table></figure></p>
+<h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><p>在OC中定义一个类是这样的，需要在创建.h .m文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@interface class name : superclass</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation class</div><div class="line"></div><div class="line">methods</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>在Swift中定义一个类,只需要一个.swift文件，变量、方法的声明 以及实现都在同一个类中完成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class SomeClass &#123;</div><div class="line">// </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><p>OC中的属性声明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (strong,nonatomic) NSString *string;</div></pre></td></tr></table></figure>
+<p>Swift中的属性声明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Shape &#123;</div><div class="line">    var string = &quot; string &quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OC中的getter setter方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSString *)string&#123;</div><div class="line">    return @&quot;str&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setString:(NSString *)string&#123;</div><div class="line">    _string = string;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Swift中的setter getter方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var string:String&#123;</div><div class="line">        set&#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        get&#123;</div><div class="line">          return &quot;string&quot;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Swift 中的属性没有对应的实例变量，属性的后端存储也无法直接访问。</p>
+<p>Objective-C 为类实例存储值和引用提供两种方法。除了属性之外，还可以使用实例变量作为属性值的后端存储。<br>Swift 编程语言中把这些理论统一用属性来实现。</p>
+<p>Swift中的只读属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var redOnly:String&#123;</div><div class="line">get&#123;</div><div class="line">    return &quot;asd&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;//get 和括号都可以去掉</div></pre></td></tr></table></figure>
+<h2 id="存储属性"><a href="#存储属性" class="headerlink" title="存储属性"></a>存储属性</h2><p>存储属性就是存储在特定类或结构体实例里的一个常量或变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">struct storeProperty&#123;</div><div class="line">    var value1:Int//存储属性</div><div class="line">    let value2:Int//存储属性</div><div class="line">&#125;</div><div class="line"></div><div class="line">var store = storeProperty(value1: 10,value2: 11)</div><div class="line">print(&quot;vale1:\(store.value1) value2:\(store.value2)&quot;)</div></pre></td></tr></table></figure>
+<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>计算属性不直接存储值，而是提供一个 getter 和一个可选的 setter，来间接获取和设置其他属性或变量的值。<br>//计算属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">struct caculateProperty&#123;</div><div class="line">    var value1:Int = 2</div><div class="line">    </div><div class="line">    var caculate:Int&#123;</div><div class="line">        set&#123;</div><div class="line">            value1 = newValue + 1</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        get&#123;</div><div class="line">           return value1*2</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var test = caculateProperty.init(value1: 2)</div><div class="line">print(&quot;value1: \(test.value1)&quot;)</div><div class="line"></div><div class="line">test.caculate = 2</div><div class="line">print(&quot;value1: \(test.value1)&quot;)</div><div class="line"></div><div class="line">var value2 = test.caculate</div><div class="line">print(&quot;value1: \(value2)&quot;)</div></pre></td></tr></table></figure>
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><p>Swift的扩展和 不同于Objective-C 中的扩展 ,但和Objective-C 中的分类类似。与Objective-C 不同的是，Swift 的扩展没有名字。</p>
+<h2 id="扩展语法"><a href="#扩展语法" class="headerlink" title="扩展语法"></a>扩展语法</h2><p>使用关键字 extension 来声明扩展：<br>extension SomeType {<br>    // 为 SomeType 添加的新功能写到这里<br>}<br>可以通过扩展来扩展一个已有类型，使其实现一个或多个协议。在这种情况下，无论是类还是结构体，协议名字的书写方式完全一样：<br>extension SomeType: SomeProtocol, AnotherProctocol {<br>    // 协议实现写到这里<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">extension ZTTestKvoAndProtocolViewController:UITextViewDelegate&#123;</div><div class="line">    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -&gt; Bool &#123;</div><div class="line">        textStr = text</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Swift中的扩展很强大,具体的可以参考Extentions</p>
+<p>注意<br>扩展可以为一个类型添加新的功能，但是不能重写已有的功能。</p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h2><p>在OC和Swift中NSthread的方法基本一样</p>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//let queue1 = DispatchQueue(label:&quot;queue1&quot;)//默认创建串行队列</div><div class="line">        let queue1 = DispatchQueue(label:&quot;queue1&quot;,attributes:.concurrent)//创建并发队列</div><div class="line">        for i in 0...10&#123;</div><div class="line">            queue1.async &#123;</div><div class="line">                print(&quot;this is async1 \(i)&quot;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>在OC中dispatch_once会被开发者用来实现一个单例，应为它只会执行一次，安全、简洁</p>
+<p>但在Swift3.0中dispatch_once已经被废除。</p>
+<h2 id="NSOperation-amp-NSOperationQueue"><a href="#NSOperation-amp-NSOperationQueue" class="headerlink" title="NSOperation &amp; NSOperationQueue"></a>NSOperation &amp; NSOperationQueue</h2><p>在OC中可以使用NSInvocationOperation将方法封装后提交到队列，也可以使用NSBlockOperation将代码块封装后提交到队列来完成任务的执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">NSOperationQueue *queue = [[NSOperationQueue alloc] init];</div><div class="line">    </div><div class="line">        NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];</div><div class="line">    </div><div class="line">    </div><div class="line">        NSBlockOperation *bloperation = [NSBlockOperation blockOperationWithBlock:^&#123;</div><div class="line">            for(int i = 0;i&lt; 20;i++)&#123;</div><div class="line">                NSLog(@&quot;子线程6：%d\n&quot;,i);</div><div class="line">    </div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">[queue addOperation:bloperation];</div><div class="line">[queue addOperation:operation];</div></pre></td></tr></table></figure>
+<p>在Swift中已经废除了使用NSInvocationOperation，不再将方法封装后提交到队列，保留了NSBlockOperation(在swift3中对应的类是BlockOperation)将代码块封装后提交到队列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let queue = OperationQueue.init()</div><div class="line">        let operation1 = BlockOperation.init &#123; </div><div class="line">            for i in 0...20&#123;</div><div class="line">                print(&quot;this is operation1 \(i)&quot;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"> queue.addOperation(operation1)</div></pre></td></tr></table></figure>
+<h1 id="开发模式"><a href="#开发模式" class="headerlink" title="开发模式"></a>开发模式</h1><h2 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h2><p>OC中创建单例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">+ (CCTVUserManager *)shareObject</div><div class="line">&#123;</div><div class="line">    static CCTVUserManager *__manager = nil;</div><div class="line">    static dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">        __manager = [[self alloc] init];</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    return __manager;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Swift中创建单例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class ZTRequest&#123;</div><div class="line">    static let sharedInstance = ZTRequest()</div><div class="line">private init()&#123;&#125;//防止其它地方调用初始化方法</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">dynamic var textStr:String!//需要在监听的值得前面加上dynamic  </div><div class="line">private var myContext = 0</div><div class="line"></div><div class="line">self.addObserver(self, forKeyPath: &quot;textStr&quot;, options: NSKeyValueObservingOptions.new, context: &amp;myContext)</div><div class="line"></div><div class="line">//MARK:响应键值监听</div><div class="line">override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) &#123;</div><div class="line">        if &amp;myContext == context &#123;</div><div class="line">            let newValue = change?[.newKey]</div><div class="line">            print(&quot;this is kvo test newValue : \(newValue)&quot;)</div><div class="line">        &#125;else&#123;</div><div class="line">            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h2><p>//注册通知</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">NotificationCenter.default.addObserver(self, selector: #selector(reciveNotificaTion(noti:)), name: NSNotification.Name(rawValue: &quot;testNotification&quot;), object: nil)</div><div class="line"></div><div class="line">//接收通知</div><div class="line">    @objc private func reciveNotificaTion(noti:NSNotification)&#123;</div><div class="line">        print(&quot;notifiacation : \(noti.userInfo)&quot;)</div><div class="line">&#125;</div><div class="line">//MARK:析构函数，进行解除观察,通知等操作</div><div class="line">    deinit &#123;</div><div class="line">        self.removeObserver(self, forKeyPath: &quot;textStr&quot;)</div><div class="line">        NotificationCenter.default.removeObserver(self)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>和OC中一样，Swift中代理和协议都是紧密相连的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">@objc</div><div class="line">protocol MyProtocol3&#123;</div><div class="line">    func test()</div><div class="line">    @objc optional func test3()</div><div class="line">&#125;</div><div class="line"></div><div class="line">class runClass&#123;</div><div class="line">    var delegate:MyProtocol3?</div><div class="line">    </div><div class="line">    func run() -&gt; Void &#123;</div><div class="line">        delegate?.test()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class testProtocol:MyProtocol3&#123;</div><div class="line">    </div><div class="line">    //MARK:Delegate</div><div class="line">    func test() &#123;</div><div class="line">        print(&quot;this is delegate&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var testClass = runClass()</div><div class="line">testClass.delegate = testProtocol()</div><div class="line">testClass.delegate?.test()</div><div class="line">testClass.delegate?.test3?()</div></pre></td></tr></table></figure>
+<p>在OC中我们检测某个类是否实现了协议方法是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if ([_delegate respondsToSelector:@selector(numberOfImagesInAdView:)]) &#123;</div><div class="line">        _imageCount = [_delegate numberOfImagesInAdView:self];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Swift3.0中，检测某个类是否实现了协议方法是这样的<br>delegate?.test3?()</p>
+<h1 id="学习网站"><a href="#学习网站" class="headerlink" title="学习网站"></a>学习网站</h1><p><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Extensions.html#//apple_ref/doc/uid/TP40014097-CH24-ID151" target="_blank" rel="external">The Swift Programming Language (Swift 3.0.1)</a></p>
+<p><a href="https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/" target="_blank" rel="external">Start Developing iOS Apps (Swift)</a></p>
+<p><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-ID122" target="_blank" rel="external">Using Swift with Cocoa and Objective-C (Swift 3.0.1)</a></p>
+<p>推荐学习的开源项目<br><a href="https://github.com/mozilla-mobile/firefox-ios" target="_blank" rel="external">firefox-ios</a><br>编译时的环境:cocoapods 1.1.1    Homebrew 1.1.1    xcode8.0</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://zt0526.github.io/2017/08/22/secoendArticle/" data-title="从OC到Swift3.0 | Hexo" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/22/fourthArticle/" title="IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/22/thirdArticle/"  title="理解和分析应用程序崩溃报告">
+ <strong>下一篇：</strong><br/> 
+ <span>理解和分析应用程序崩溃报告
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可选类型以及隐式可选类型"><span class="toc-number">1.</span> <span class="toc-text">可选类型以及隐式可选类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#可选类型"><span class="toc-number">1.1.</span> <span class="toc-text">可选类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#强制解析"><span class="toc-number">1.2.</span> <span class="toc-text">强制解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式可选类型"><span class="toc-number">1.2.1.</span> <span class="toc-text">隐式可选类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#控制流"><span class="toc-number">2.</span> <span class="toc-text">控制流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if语句"><span class="toc-number">2.1.</span> <span class="toc-text">if语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch"><span class="toc-number">2.2.</span> <span class="toc-text">Switch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#区间匹配"><span class="toc-number">2.2.1.</span> <span class="toc-text">区间匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复合匹配"><span class="toc-number">2.2.2.</span> <span class="toc-text">复合匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-Switch-语句匹配枚举值"><span class="toc-number">2.2.3.</span> <span class="toc-text">使用 Switch 语句匹配枚举值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#忽略参数标签"><span class="toc-number">3.1.</span> <span class="toc-text">忽略参数标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数中参数的修改"><span class="toc-number">3.2.</span> <span class="toc-text">函数中参数的修改</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#闭包"><span class="toc-number">4.</span> <span class="toc-text">闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包表达式语法"><span class="toc-number">4.1.</span> <span class="toc-text">闭包表达式语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尾随闭包"><span class="toc-number">4.2.</span> <span class="toc-text">尾随闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逃逸闭包"><span class="toc-number">4.3.</span> <span class="toc-text">逃逸闭包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#协议"><span class="toc-number">5.</span> <span class="toc-text">协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类"><span class="toc-number">6.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#属性"><span class="toc-number">7.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#存储属性"><span class="toc-number">7.1.</span> <span class="toc-text">存储属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性"><span class="toc-number">7.2.</span> <span class="toc-text">计算属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">8.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展语法"><span class="toc-number">8.1.</span> <span class="toc-text">扩展语法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多线程"><span class="toc-number">9.</span> <span class="toc-text">多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSThread"><span class="toc-number">9.1.</span> <span class="toc-text">NSThread</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GCD"><span class="toc-number">9.2.</span> <span class="toc-text">GCD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSOperation-amp-NSOperationQueue"><span class="toc-number">9.3.</span> <span class="toc-text">NSOperation & NSOperationQueue</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开发模式"><span class="toc-number">10.</span> <span class="toc-text">开发模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单例"><span class="toc-number">10.1.</span> <span class="toc-text">单例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVO"><span class="toc-number">10.2.</span> <span class="toc-text">KVO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通知"><span class="toc-number">10.3.</span> <span class="toc-text">通知</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代理"><span class="toc-number">10.4.</span> <span class="toc-text">代理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习网站"><span class="toc-number">11.</span> <span class="toc-text">学习网站</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="ZT0526">ZT0526</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

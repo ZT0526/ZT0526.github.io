@@ -1,0 +1,472 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo) | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZT0526">
+    
+
+    
+    <meta name="description" content="在项目中当我们遇到拍照的功能模块的时候，如果仅仅是用来拍照，系统提供的UIImagePickerController足够用来完成我们的任务。但是当我们的应用场景稍稍复杂点的时候，如要实现类似水印相机、美颜相机的时候，UIImagePickerController就有点力不从心了，需要自己去diy一个自定义相机。 UIImagePickerController使用起来比较简单易用，拍照，录制视频、控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo)">
+<meta property="og:url" content="https://zt0526.github.io/2017/08/22/fourthArticle/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在项目中当我们遇到拍照的功能模块的时候，如果仅仅是用来拍照，系统提供的UIImagePickerController足够用来完成我们的任务。但是当我们的应用场景稍稍复杂点的时候，如要实现类似水印相机、美颜相机的时候，UIImagePickerController就有点力不从心了，需要自己去diy一个自定义相机。 UIImagePickerController使用起来比较简单易用，拍照，录制视频、控">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-12ea92d5ec98730c.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-469450e831aebc08.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2017-08-22T03:48:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo)">
+<meta name="twitter:description" content="在项目中当我们遇到拍照的功能模块的时候，如果仅仅是用来拍照，系统提供的UIImagePickerController足够用来完成我们的任务。但是当我们的应用场景稍稍复杂点的时候，如要实现类似水印相机、美颜相机的时候，UIImagePickerController就有点力不从心了，需要自己去diy一个自定义相机。 UIImagePickerController使用起来比较简单易用，拍照，录制视频、控">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716542-12ea92d5ec98730c.gif?imageMogr2/auto-orient/strip">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zt0526.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/22/fourthArticle/" title="IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo)" itemprop="url">IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZT0526" target="_blank" itemprop="author">ZT0526</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-22T03:48:39.000Z" itemprop="datePublished"> Published 2017-08-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>在项目中当我们遇到拍照的功能模块的时候，如果仅仅是用来拍照，系统提供的UIImagePickerController足够用来完成我们的任务。但是当我们的应用场景稍稍复杂点的时候，如要实现类似水印相机、美颜相机的时候，UIImagePickerController就有点力不从心了，需要自己去diy一个自定义相机。</p>
+<p>UIImagePickerController使用起来比较简单易用，拍照，录制视频、控制闪光灯，前后摄像头的切换一应俱全。但是相机支持ui界面的自定义并不好(虽然可以支持自定义)，在不同的系统下相机的功能界面还有所差别。</p>
+<p>以水印相机为例，在水印相机中我们需要能够让水印模式实时的显示在相机的取景框中，而且水印模式还要可以左右滑动切换，在横屏的时候水印也要跟着横屏，还要有放大缩小镜头的以及点击屏幕能够聚焦等功能。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-12ea92d5ec98730c.gif?imageMogr2/auto-orient/strip" alt="腾讯水印相机.gif"></p>
+<p>当然有人可能会想，将水印模式分成一个视图层然后放到相机的最上层不就行了吗？当然是不行的，首先UIImagePickerController在不同系统中的封装是略微不一样的，ui界面有所差别，界面不能够统一，即便是现在花了很过代码一个系统一个系统的适配，也很难保证以后不出问题，其次是手势的识别也有问题，即便是对手势进行了拦截处理，也不能解决，说白了也就是不是自己封装的东西，难以得到完美的掌控。</p>
+<p>下面就开始自定义一个相机，并实现拍照、取消、闪光灯控制、前后摄像头控制、聚焦、放大缩小、拍照后预览、重拍、使用照片等功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, strong) ZTImagePickerOverLayView  *overlayView;//预览图层</div><div class="line"></div><div class="line">@property (nonatomic) dispatch_queue_t sessionQueue;</div><div class="line"></div><div class="line">@property (nonatomic, strong) AVCaptureSession* session;//用于捕捉视频和音频,协调视频和音频的输入和输出流</div><div class="line"></div><div class="line">@property (nonatomic, strong) AVCaptureDeviceInput* videoInput;</div><div class="line"></div><div class="line">@property (nonatomic, strong) AVCaptureStillImageOutput* stillImageOutput;//输出静态影像</div><div class="line"></div><div class="line">@property (nonatomic, strong) AVCaptureDevice             *device;//主要用来获取iphone一些关于相机设备的属性</div><div class="line">@property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;//预览图层layer</div></pre></td></tr></table></figure></p>
+<p>这里将相机的控件以及相机的实时显示的图层放在一个视图类ZTImagePickerOverLayView中，拍完照后的图层放在另外一个类ZTImagePickerPreImageView中,各个视图间的协调及部分逻辑放在控制器中ZTImagePickerController。封装完整个相机不过用了几百行代码。</p>
+<p>1.初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">self.session = [[AVCaptureSession alloc] init];</div><div class="line">   [self.session setSessionPreset:AVCaptureSessionPresetPhoto];</div><div class="line">   </div><div class="line">   NSError *error;</div><div class="line">   </div><div class="line">   self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];</div><div class="line">   </div><div class="line">   </div><div class="line">   self.videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:self.device error:&amp;error];</div><div class="line">  </div><div class="line">   self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];</div><div class="line">   //输出设置。AVVideoCodecJPEG   输出jpeg格式图片</div><div class="line">   NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];</div><div class="line">   [self.stillImageOutput setOutputSettings:outputSettings];</div><div class="line">   </div><div class="line">   if ([self.session canAddInput:self.videoInput]) &#123;</div><div class="line">       [self.session addInput:self.videoInput];</div><div class="line">   &#125;</div><div class="line">   if ([self.session canAddOutput:self.stillImageOutput]) &#123;</div><div class="line">       [self.session addOutput:self.stillImageOutput];</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   //初始化预览图层</div><div class="line">   self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];</div><div class="line">   [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];</div><div class="line">   NSLog(@&quot;%f&quot;,ScreenWidth);</div><div class="line">   self.previewLayer.frame = CGRectMake(0, 0,ScreenWidth, ScreenHeight);</div><div class="line">   self.preview = [[ZTImagePickerOverLayView alloc] init];</div><div class="line">   self.preview.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);</div><div class="line">   [self.preview layoutSubviews];</div><div class="line">   [self.preview.layer addSublayer:self.previewLayer];</div><div class="line">   [self.view addSubview:self.preview];</div><div class="line">   </div><div class="line">   //添加顶部以及底部的自定义工具条</div><div class="line">   [self.view addSubview:self.preview.topbar];</div><div class="line">   [self.view addSubview:self.preview.buttomBar];</div><div class="line">   self.preview.topbar.frame = CGRectMake(0, 0, self.view.width, 64 * ScreenWidth/320.0);</div><div class="line">   self.preview.buttomBar.frame = CGRectMake(0, self.view.height - 70 * ScreenWidth/320.0 , self.view.width, 70* ScreenWidth/320.0);</div><div class="line">   [self.preview layoutSubviews];</div><div class="line">   //设置闪关灯模式</div><div class="line">   if(self.device.isFlashAvailable)</div><div class="line">       [self.preview setFlashModel:self.device.flashMode];</div><div class="line">   else&#123;</div><div class="line">       self.preview.flashButton.hidden = YES;</div><div class="line">       self.preview.cameraSwitchButton.hidden = YES;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   //设置拍照后预览图层</div><div class="line">   self.preImageView = [[ZTImagePickerPreImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];</div><div class="line">   [self.preImageView layoutSubviews];</div><div class="line">   self.preImageView.hidden = YES;</div><div class="line">   [self.view addSubview:self.preImageView];</div></pre></td></tr></table></figure></p>
+<p>2.添加手势<br>给预览层添加捏合手势控制放大缩小,添加点击手势来聚焦<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self</div><div class="line">                                                                               action:@selector(handlePinchGesture:)];</div><div class="line">   pinch.delegate = self;</div><div class="line">   [self.preview addGestureRecognizer:pinch];</div><div class="line">   </div><div class="line">   </div><div class="line">   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self</div><div class="line">                                                                         action:@selector(focusAction:)];</div><div class="line">   [self.preview addGestureRecognizer:tap];</div></pre></td></tr></table></figure></p>
+<p>3.给控件添加响应事件<br>闪光灯打开、关闭、自动，摄像头切换、取消、拍照、重新拍照、使用照片等按钮添加响应事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[self.preview.cameraSwitchButton addTarget:self action:@selector(switchCameraSegmentedControlClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.preview.flashAutoButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.preview.flashOpeanButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.preview.flashCloseButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    </div><div class="line">    [self.preview.takePictureButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    </div><div class="line">    [self.preview.cancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    </div><div class="line">    [self.preImageView.reTakeButton addTarget:self action:@selector(retakeButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.preImageView.useImageButton addTarget:self action:@selector(useImageButtonClick:) forControlEvents:UIControlEventTouchUpInside];</div></pre></td></tr></table></figure></p>
+<p>4.闪光灯控制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">- (void)flashButtonClick:(UIButton *)sender &#123;</div><div class="line">    //[self.preview reSetTopbar];</div><div class="line">    [self.preview chosedFlashButton:sender];</div><div class="line">    </div><div class="line">    NSLog(@&quot;flashButtonClick&quot;);</div><div class="line">    </div><div class="line">    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];</div><div class="line">    </div><div class="line">    //修改前必须先锁定</div><div class="line">    [device lockForConfiguration:nil];</div><div class="line">    //必须判定是否有闪光灯，否则如果没有闪光灯会崩溃</div><div class="line">    if ([device hasFlash]) &#123;</div><div class="line">        if([sender.titleLabel.text isEqualToString:@&quot;打开&quot;])&#123;</div><div class="line">            if([device isFlashModeSupported:AVCaptureFlashModeOn])</div><div class="line">                [device setFlashMode:AVCaptureFlashModeOn];</div><div class="line">        &#125;else if ([sender.titleLabel.text isEqualToString:@&quot;自动&quot;])&#123;</div><div class="line">            if([device isFlashModeSupported:AVCaptureFlashModeAuto])</div><div class="line">                [device setFlashMode:AVCaptureFlashModeAuto];</div><div class="line">            </div><div class="line">        &#125;else if ([sender.titleLabel.text isEqualToString:@&quot;关闭&quot;])&#123;</div><div class="line">            if([device isFlashModeSupported:AVCaptureFlashModeOff])</div><div class="line">                [device setFlashMode:AVCaptureFlashModeOff];</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">        NSLog(@&quot;设备不支持闪光灯&quot;);</div><div class="line">    &#125;</div><div class="line">    [device unlockForConfiguration];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>5.前后摄像头切换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">- (void)switchCameraSegmentedControlClick:(id)sender &#123;</div><div class="line">    </div><div class="line">    //NSLog(@&quot;%ld&quot;,(long)sender.selectedSegmentIndex);</div><div class="line">    </div><div class="line">    AVCaptureDevicePosition desiredPosition;</div><div class="line">    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];</div><div class="line">    if (isUsingFrontFacingCamera)&#123;</div><div class="line">        </div><div class="line">        if(device.isFlashAvailable) self.preview.flashButton.hidden = NO;</div><div class="line">        desiredPosition = AVCaptureDevicePositionBack;</div><div class="line">        </div><div class="line">    &#125;else&#123;</div><div class="line">        desiredPosition = AVCaptureDevicePositionFront;</div><div class="line">        [self.preview reSetTopbar];</div><div class="line">        self.preview.flashButton.hidden = YES;</div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) &#123;</div><div class="line">        if ([d position] == desiredPosition) &#123;</div><div class="line">            [self.previewLayer.session beginConfiguration];</div><div class="line">            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];</div><div class="line">            for (AVCaptureInput *oldInput in self.previewLayer.session.inputs) &#123;</div><div class="line">                [[self.previewLayer session] removeInput:oldInput];</div><div class="line">            &#125;</div><div class="line">            [self.previewLayer.session addInput:input];</div><div class="line">            [self.previewLayer.session commitConfiguration];</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>6.拍照<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">- (void)takePhotoButtonClick:(id )sender&#123;</div><div class="line">    </div><div class="line">    AVCaptureConnection *stillImageConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];</div><div class="line">    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];</div><div class="line">    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];</div><div class="line">    [stillImageConnection setVideoOrientation:avcaptureOrientation];</div><div class="line">    [stillImageConnection setVideoScaleAndCropFactor:self.effectiveScale];</div><div class="line">    </div><div class="line">    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) &#123;</div><div class="line">        </div><div class="line">        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];</div><div class="line">        self.imageData = jpegData;</div><div class="line">        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,</div><div class="line">                                                                    imageDataSampleBuffer,</div><div class="line">                                                                    kCMAttachmentMode_ShouldPropagate);</div><div class="line">        UIImage *image = [UIImage imageWithData:jpegData];</div><div class="line">        [self waterMarkFixed];</div><div class="line">        self.preImageView.imageView.image = image;</div><div class="line">        [self.preview hiddenSelfAndBars:YES];</div><div class="line">        self.preImageView.hidden = NO;</div><div class="line">        </div><div class="line">        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];</div><div class="line">            if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied)&#123;</div><div class="line">                    //无权限</div><div class="line">                    return ;</div><div class="line">                &#125;</div><div class="line">        //保存到相册</div><div class="line">//            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];</div><div class="line">//            [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) &#123;</div><div class="line">//        </div><div class="line">//            &#125;];</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    if([self.delegate respondsToSelector:@selector(imagePickerControllerTakePhoto:)])</div><div class="line">        [self.delegate imagePickerControllerTakePhoto:self];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>7.放大缩小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">- (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer&#123;</div><div class="line">    </div><div class="line">    BOOL allTouchesAreOnThePreviewLayer = YES;</div><div class="line">    NSUInteger numTouches = [recognizer numberOfTouches], i;</div><div class="line">    for ( i = 0; i &lt; numTouches; ++i ) &#123;</div><div class="line">        CGPoint location = [recognizer locationOfTouch:i inView:self.preview];</div><div class="line">        CGPoint convertedLocation = [self.previewLayer convertPoint:location fromLayer:self.previewLayer.superlayer];</div><div class="line">        if ( ! [self.previewLayer containsPoint:convertedLocation] ) &#123;</div><div class="line">            allTouchesAreOnThePreviewLayer = NO;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if ( allTouchesAreOnThePreviewLayer ) &#123;</div><div class="line">        </div><div class="line">        </div><div class="line">        self.effectiveScale = self.beginGestureScale * recognizer.scale;</div><div class="line">        if (self.effectiveScale &lt; 1.0)&#123;</div><div class="line">            self.effectiveScale = 1.0;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        CGFloat maxScaleAndCropFactor = [[self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo] videoMaxScaleAndCropFactor];</div><div class="line">        </div><div class="line">        </div><div class="line">        if (self.effectiveScale &gt; maxScaleAndCropFactor)</div><div class="line">            self.effectiveScale = maxScaleAndCropFactor;</div><div class="line">        </div><div class="line">        [CATransaction begin];</div><div class="line">        [CATransaction setAnimationDuration:.025];</div><div class="line">        [self.previewLayer setAffineTransform:CGAffineTransformMakeScale(self.effectiveScale, self.effectiveScale)];</div><div class="line">        [CATransaction commit];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>8.照片方向修正<br>拍完照的时候，拍出的照片你会发现呈现的方向不对，需要对照片的方向进行修正。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];</div><div class="line">    [stillImageConnection setVideoOrientation:avcaptureOrientation];</div><div class="line"></div><div class="line">- (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation</div><div class="line">&#123;</div><div class="line">    AVCaptureVideoOrientation result = (AVCaptureVideoOrientation)deviceOrientation;</div><div class="line">    if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )</div><div class="line">        result = AVCaptureVideoOrientationLandscapeRight;</div><div class="line">    else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )</div><div class="line">        result = AVCaptureVideoOrientationLandscapeLeft;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里需要注意的是如果想要拍完照的效果和UIimagePickerController的效果一样，即在横屏下拍完照，照片要旋转显示并且显示的小一些，那么就要对拍完照预览图层进行修改。</p>
+<p>图片</p>
+<p>在预览图层中修改imageview的大小。(这部分代码我并没有加到demo中，如果想实现拍完照后照片的方向与系统相机的一样，可以在ZTImagePickerPreImageView中加上)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (void)changeImageViewFrameIfNeeded:(UIDeviceOrientation)orientation&#123;</div><div class="line">    if(orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight)&#123;</div><div class="line">    </div><div class="line">        self.imageView.frame = CGRectMake(0, 0, self.width, 240 * [UIScreen mainScreen].bounds.size.width / 320.0);</div><div class="line">        self.imageView.centerY = self.height / 2.0;</div><div class="line">    &#125;else&#123;</div><div class="line">        _imageView.frame = CGRectMake(0, 0, self.width, 418 * [UIScreen mainScreen].bounds.size.width / 320.0);</div><div class="line">        _imageView.centerY = self.height / 2.0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>仅仅是这样还不够，还要对设备方向的获取进行改进。<br>通常我们获取设备方向是通过[[UIDevice currentDevice] orientation] 或者通过[UIApplication sharedApplication].statusBarOrientation的方式来获取。但这两种方式有一个缺点，在竖排方向开关关闭的时候，获取到的方向是正确的，在开关打开的时候获取到的方向是竖直方向，在横屏等情况下获取的方向不正确。这时候就要通过CMMotionManager来获取方向了。(下面这段代码也没有加到demo中，如果有这样的功能需求，可以在ZTImagePickerController中加上这段代码)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">- (void)p_startMotionManager&#123;</div><div class="line">    self.deviceOrientation = UIDeviceOrientationPortrait;</div><div class="line">    if (_motionManager == nil) &#123;</div><div class="line">        _motionManager = [[CMMotionManager alloc] init];</div><div class="line">    &#125;</div><div class="line">    _motionManager.deviceMotionUpdateInterval = 1/15.0;</div><div class="line">    if (_motionManager.deviceMotionAvailable) &#123;</div><div class="line">        NSLog(@&quot;Device Motion Available&quot;);</div><div class="line">        [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]</div><div class="line">                                            withHandler: ^(CMDeviceMotion *motion, NSError *error)&#123;</div><div class="line">                                                [self performSelectorOnMainThread:@selector(handleDeviceMotion:) withObject:motion waitUntilDone:YES];</div><div class="line">                                                </div><div class="line">                                            &#125;];</div><div class="line">    &#125; else &#123;</div><div class="line">        NSLog(@&quot;No device motion on device.&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)p_stopMonotionManager&#123;</div><div class="line">    [_motionManager stopDeviceMotionUpdates];</div><div class="line">    _motionManager = nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>二、添加水印<br>如果要实现类似腾讯的水印相机形式的水印，需要对水印专门做一个图层来进行管理。将水印图层放在相机的最上层就可以实时看到水印了，并且可以左右切换水印。这里使用scrollview来容纳每种水印样式，如果水印样式比较多当然可以使用collectionView来容纳。</p>
+<p>为了让水印图层的手势(scrollView的左右滑动，每种水印样式视图中的控件响应手势)响应不与相机图层的手势响应不冲突，在水印图层可以将手势进行拦截，根据实际情况来返回响应手势的视图控件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">这里的代码根据实际情况修改</div><div class="line">- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event&#123;</div><div class="line">    </div><div class="line">    UIView *view = [super hitTest:point withEvent:event];</div><div class="line">    </div><div class="line">    CGPoint tempPoint = [self.reportView convertPoint:point fromView:self];</div><div class="line">    if(CGRectContainsPoint(self.reportView.reportTypeLb.frame, tempPoint))&#123;</div><div class="line">        view = self.reportView.reportTypeLb;</div><div class="line">        return view;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    NSInteger left = 0,top = 0, height = 0,width = self.contentSize.width;</div><div class="line">     height = MAX(self.reportView.xmNameLb.top, self.handleProblemView.userLb.top);</div><div class="line">    if([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft)&#123;</div><div class="line">        left = self.height - height;</div><div class="line">        width = self.width;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if(CGRectContainsPoint(CGRectMake(left, top, width, height), point))&#123;</div><div class="line">            view = [self.superview.subviews objectAtIndex:0];</div><div class="line">            view = [view hitTest:point withEvent:event];</div><div class="line">        &#125;else&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return view;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>拍完照选择好水印样式后，将水印样式用的空间绘制到照片上，就形成了水印照片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">- (UIImage *)markedImageWithType:(XBWaterMark )waterMarkType date:(NSDate *)date user:(NSString *)user placLocation:(ZTLocationModel *)locationModel withPhone:(NSString *)phone xmType:(NSString *)xmType&#123;</div><div class="line">    </div><div class="line">    if (self.size.width == 0.0 || self.size.height == 0.0) return nil;</div><div class="line">    </div><div class="line">    UIImage *defaultImage = nil;</div><div class="line">    </div><div class="line">    CGFloat scale = [UIScreen mainScreen].scale;</div><div class="line">    if(scale &gt;= 3) scale = 2;</div><div class="line">    </div><div class="line">    UIImage *image = [self thumbnailForMaxWidth:1024/scale maxHeight:1024/scale];</div><div class="line">    </div><div class="line">    CGSize newSize = CGSizeMake(image.size.width*image.scale/scale, image.size.height*image.scale/scale);</div><div class="line">    </div><div class="line">    UIView *waterMarkView = [self p_markWaterMarkView:waterMarkType date:date user:user</div><div class="line">                                            placLocation:locationModel  withPhone:phone newSize:newSize xmType:xmType];</div><div class="line">    //将水印样式中的控件绘制到图片</div><div class="line">    UIGraphicsBeginImageContextWithOptions(newSize, YES, 0.0);</div><div class="line">    </div><div class="line">    CGContextRef context = UIGraphicsGetCurrentContext();</div><div class="line">    CGContextSaveGState(context);</div><div class="line">    </div><div class="line">    [image drawInRect:CGRectMake(0.0, 0.0, newSize.width, newSize.height)];</div><div class="line">    </div><div class="line">    for (UIView *view in waterMarkView.subviews) &#123;</div><div class="line">        if([view isKindOfClass:[UIImageView class]])&#123;</div><div class="line">            UIImageView *iv = (UIImageView *)view;</div><div class="line">            [iv.image drawInRect:CGRectMake(iv.left,iv.top, iv.width, iv.height)];</div><div class="line">        &#125;else if ([view isKindOfClass:[UILabel class]])&#123;</div><div class="line">            UILabel *lb = (UILabel *)view;</div><div class="line">            UIImage *lbImage = [lb imageByRenderingView];</div><div class="line">            [lbImage drawInRect:CGRectMake(lb.left, lb.top, lb.width, lb.height)];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    CGContextRestoreGState(context);</div><div class="line">    </div><div class="line">    defaultImage = UIGraphicsGetImageFromCurrentImageContext();</div><div class="line">    </div><div class="line">    UIGraphicsEndImageContext();</div><div class="line">    </div><div class="line">    return defaultImage;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果图</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-469450e831aebc08.gif?imageMogr2/auto-orient/strip" alt="自定义水印相机.gif"></p>
+<p>自定义相机<a href="https://github.com/ZT0526/ZTImagePicker" target="_blank" rel="external">demo</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://zt0526.github.io/2017/08/22/fourthArticle/" data-title="IOS自定义相机,使用AVFoundation(附实现部分腾讯水印相机功能demo) | Hexo" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/22/five/" title="IOS播放GIF动画的方式及手动实现gif动画的播放">
+  <strong>上一篇：</strong><br/>
+  <span>
+  IOS播放GIF动画的方式及手动实现gif动画的播放</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/22/secoendArticle/"  title="从OC到Swift3.0">
+ <strong>下一篇：</strong><br/> 
+ <span>从OC到Swift3.0
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="ZT0526">ZT0526</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
