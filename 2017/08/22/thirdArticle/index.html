@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-ec82ba3e8db570b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-1c2964ec6ead1bbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-4eea0206ed055974.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-08-23T03:02:01.000Z">
+<meta property="og:updated_time" content="2017-08-23T03:06:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解和分析应用程序崩溃报告">
 <meta name="twitter:description" content="写在前面：本文会在最开头将苹果官方的文档Understanding and Analyzing Application Crash Reports进行翻译,但这不仅仅是一篇翻译的文章，本文会让大家更加全面的了解ios的崩溃报告的获取、分析、用途。翻译的时候我会结合自己以往的使用经验来进行翻译。 理解和分析应用程序崩溃报告 重要提示：本文档包含有关开发中的一个接口或技术的初步信息。此信息将被更改，并">
@@ -72,7 +72,7 @@
 				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -88,7 +88,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:zt0526.github.io">
 					</form>
 					
@@ -111,14 +111,14 @@
 		<a href="/about" title="ZT0526" target="_blank" itemprop="author">ZT0526</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-22T03:38:51.000Z" itemprop="datePublished"> Published 2017-08-22</time>
+    <time datetime="2017-08-22T03:38:51.000Z" itemprop="datePublished"> 發表於 2017-08-22</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		
 			
 		
@@ -167,7 +167,7 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/1716542-59ef6016fa4e3d94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="xcode自己去符号化崩溃文件"></p>
 <p>2.符号化用安装包安装在测试设备上的应用所产生的崩溃日志<br>符号化的时候需要准备symbolicatecrash文件 .dSYM文件 以及.app文件<br>符号化前先检查一下三者的uuid是不是一致的,只有是一致的才能符号化成功。<br>查看xx.app文件的uuid的方法：<br>dwarfdump –uuid xxx.app/xxx (xxx工程名)<br>查看xx.app.dSYM文件的uuid的方法令：<br>dwarfdump –uuid xxx.app.dSYM (xxx工程名)<br>而.crash的uuid位于，crash日志中的Binary Images:中的第一行尖括号内。如：armv7 <8bdeaf1a0b233ac199728c2a0ebb4165></8bdeaf1a0b233ac199728c2a0ebb4165></p>
 <p>将三种文件拷贝到同一个目录中，在终端中使用命令<br>./symbolicatecrash ./<em>.crash ./</em>.app.dSYM &gt; xxx.crash来解析崩溃日志。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1716542-6cf5ed8bbecce6fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161209-5.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-6cf5ed8bbecce6fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="asdasd"></p>
 <p>如果想今后解析日志的时候更方便一点，特别是解析多个崩溃日志的时候，如果一个一个去解析的话，很花费时间的。我的话，会将这些写到一个脚本中，解析的时候就只用执行脚本，就可以很方便快捷的获取到崩溃日志。</p>
 <p>3.获取并符号化线上的崩溃报告<br>一.通过打包上线时的xcode来获取线上的崩溃报告<br>线上app的崩溃日志会被app store收集并符号化分组。类似的崩溃报告的集合被称为崩溃点。(如果用户选择了与苹果共享诊断数据，这些崩溃日志才会被收集并被符号化)</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1716542-a74a8ad28c33edb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161122-0@2x.png"></p>
@@ -256,17 +256,17 @@
 
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
  
  
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
@@ -277,7 +277,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -299,11 +299,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -530,7 +530,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
