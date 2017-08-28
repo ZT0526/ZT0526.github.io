@@ -11,17 +11,17 @@
     
 
     
-    <meta name="description" content="###写在前面:   视频或者动画其实就是多个帧（多个画面）组合起来形成的，这个帧数至少要达到30帧每秒(30fps)，看起来才会觉得是正常的，视觉上看起来才是动的         hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){">
+    <meta name="description" content="hljs.initHighlightingOnLoad();   $(document).ready(function(){       $(&quot;h2,h3,h4,h5,h6&quot;).each(function(i,item){         var tag = $(item).get(0).localName;         $(item).attr(&quot;id&quot;,&quot;wow&quot;+i);">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IOS播放GIF动画的方式及手动实现gif动画的播放">
 <meta property="og:url" content="https://zt0526.github.io/2017/08/22/five/index.html">
 <meta property="og:site_name" content="hahaha">
-<meta property="og:description" content="###写在前面:   视频或者动画其实就是多个帧（多个画面）组合起来形成的，这个帧数至少要达到30帧每秒(30fps)，看起来才会觉得是正常的，视觉上看起来才是动的         hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){">
+<meta property="og:description" content="hljs.initHighlightingOnLoad();   $(document).ready(function(){       $(&quot;h2,h3,h4,h5,h6&quot;).each(function(i,item){         var tag = $(item).get(0).localName;         $(item).attr(&quot;id&quot;,&quot;wow&quot;+i);">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-571cc10fe5172a62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-08-28T02:40:12.000Z">
+<meta property="og:updated_time" content="2017-08-28T02:50:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IOS播放GIF动画的方式及手动实现gif动画的播放">
-<meta name="twitter:description" content="###写在前面:   视频或者动画其实就是多个帧（多个画面）组合起来形成的，这个帧数至少要达到30帧每秒(30fps)，看起来才会觉得是正常的，视觉上看起来才是动的         hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){">
+<meta name="twitter:description" content="hljs.initHighlightingOnLoad();   $(document).ready(function(){       $(&quot;h2,h3,h4,h5,h6&quot;).each(function(i,item){         var tag = $(item).get(0).localName;         $(item).attr(&quot;id&quot;,&quot;wow&quot;+i);">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716542-571cc10fe5172a62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
     
@@ -102,7 +102,30 @@
 		
 		</div>
 		
-		<p>###写在前面:<br>   视频或者动画其实就是多个帧（多个画面）组合起来形成的，这个帧数至少要达到30帧每秒(30fps)，看起来才会觉得是正常的，视觉上看起来才是动的</p>
+		<link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/googlecode.min.css">
+
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+ $(document).ready(function(){
+      $("h2,h3,h4,h5,h6").each(function(i,item){
+        var tag = $(item).get(0).localName;
+        $(item).attr("id","wow"+i);
+        $("#category").append('<a class="new'+tag+'" href="#wow'+i+'">'+$(this).text()+'</a></br>');
+        $(".newh2").css("margin-left",0);
+        $(".newh3").css("margin-left",20);
+        $(".newh4").css("margin-left",40);
+        $(".newh5").css("margin-left",60);
+        $(".newh6").css("margin-left",80);
+      });
+ });
+</script>
+<div id="category"></div>
+###写在前面:
+   视频或者动画其实就是多个帧（多个画面）组合起来形成的，这个帧数至少要达到30帧每秒(30fps)，看起来才会觉得是正常的，视觉上看起来才是动的
+
    <link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/googlecode.min.css">
 
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
