@@ -1,0 +1,534 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>ios微信逆向实战--自动抢红包、修改步数、防止消息撤回 | hahaha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZT0526">
+    
+
+    
+    <meta name="description" content="#八九个月以前就看到了这篇文章一步一步实现iOS微信自动抢红包(非越狱),然后自己尝试着开始自己弄一个，但由于我的设备是ios9.3.2有点奇怪，在砸壳和打包的环节卡住了。在一两个月以前又看见有人成功了:Make WeChat Great Again，这次自己也下决心弄一弄。最终还是被我搞出来了O(∩_∩)O哈！ 已经用了很长时间了，没有被封号！需要准备的东西dumpdecrypted 砸壳用yo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios微信逆向实战--自动抢红包、修改步数、防止消息撤回">
+<meta property="og:url" content="https://zt0526.github.io/2017/10/25/ios微信逆向实战-自动抢红包、修改步数、防止消息撤回/index.html">
+<meta property="og:site_name" content="hahaha">
+<meta property="og:description" content="#八九个月以前就看到了这篇文章一步一步实现iOS微信自动抢红包(非越狱),然后自己尝试着开始自己弄一个，但由于我的设备是ios9.3.2有点奇怪，在砸壳和打包的环节卡住了。在一两个月以前又看见有人成功了:Make WeChat Great Again，这次自己也下决心弄一弄。最终还是被我搞出来了O(∩_∩)O哈！ 已经用了很长时间了，没有被封号！需要准备的东西dumpdecrypted 砸壳用yo">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-6cb674a834b69fbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-c4bae63074a473d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-70b2c173240c2612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-fd401594092c9901.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-0d342f1678d4862c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-9220855c92334b45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-4e8a763e95e8180e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-0299b2cf217bb8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-7359bfaadc89a434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-71307674a85aa0b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-6c49bed99e1de484.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-05bee24a2fa7cf2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-5311288933d4cffa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-311f85092c04a330.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-2f6132ca149fcbe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-07bcd4c21847bf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-5baf449c7cbd74a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-1756e2c848d70142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-fb78fa2ed6c227d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-e6524ef167ddf71e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-30T07:46:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ios微信逆向实战--自动抢红包、修改步数、防止消息撤回">
+<meta name="twitter:description" content="#八九个月以前就看到了这篇文章一步一步实现iOS微信自动抢红包(非越狱),然后自己尝试着开始自己弄一个，但由于我的设备是ios9.3.2有点奇怪，在砸壳和打包的环节卡住了。在一两个月以前又看见有人成功了:Make WeChat Great Again，这次自己也下决心弄一弄。最终还是被我搞出来了O(∩_∩)O哈！ 已经用了很长时间了，没有被封号！需要准备的东西dumpdecrypted 砸壳用yo">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716542-6cb674a834b69fbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+    
+    <link rel="alternative" href="/atom.xml" title="hahaha" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="hahaha" title="hahaha"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="hahaha">hahaha</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zt0526.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/25/ios微信逆向实战-自动抢红包、修改步数、防止消息撤回/" title="ios微信逆向实战--自动抢红包、修改步数、防止消息撤回" itemprop="url">ios微信逆向实战--自动抢红包、修改步数、防止消息撤回</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZT0526" target="_blank" itemprop="author">ZT0526</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-25T07:44:21.000Z" itemprop="datePublished"> Published 2017-10-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#已经用了很长时间了，没有被封号！"><span class="toc-number">1.</span> <span class="toc-text">已经用了很长时间了，没有被封号！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、砸壳"><span class="toc-number">2.</span> <span class="toc-text">一、砸壳</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-先在越狱软件上安装ssh插件OpenSSH-命令行下和应用交互的插件Cycript"><span class="toc-number">2.1.</span> <span class="toc-text">1.先在越狱软件上安装ssh插件OpenSSH  ,命令行下和应用交互的插件Cycript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-让越狱手机和mac电脑在同一个局域网下-为了能够通过ssh服务从mac电脑访问手机"><span class="toc-number">2.2.</span> <span class="toc-text">2.让越狱手机和mac电脑在同一个局域网下(为了能够通过ssh服务从mac电脑访问手机)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-在mac的命令行终端-通过ssh服务登录手机-输入ssh-root-192-168-80-212-手机ip-。默认情况下的root密码是alpine。root密码可以自己修改。"><span class="toc-number">2.3.</span> <span class="toc-text">3.在mac的命令行终端  通过ssh服务登录手机  输入ssh root@192.168.80.212(手机ip)。默认情况下的root密码是alpine。root密码可以自己修改。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-在手机上运行微信-，-然后通过获取运行程序的命令加上管道命令-ps-e-grep-WeChat-筛选出WeChat的文件路径-并做记录稍后会用到"><span class="toc-number">2.4.</span> <span class="toc-text">4.在手机上运行微信  ， 然后通过获取运行程序的命令加上管道命令  ps -e | grep WeChat  筛选出WeChat的文件路径  并做记录稍后会用到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-查找到WeChat的Documents路径，输入cycript-p-WeChat，进入cycript命令状态"><span class="toc-number">2.5.</span> <span class="toc-text">5.查找到WeChat的Documents路径，输入cycript -p WeChat，进入cycript命令状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-输入NSSearchPathForDirectoriesInDomains-NSDocumentDirectory-NSUserDomainMask-YES-0-，获得Documents路径-并做记录稍后会用到-需要微信在运行中，ctrl-d-cycript结束命令状态"><span class="toc-number">2.6.</span> <span class="toc-text">6.输入NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0]，获得Documents路径  并做记录稍后会用到.(需要微信在运行中，ctrl + d cycript结束命令状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac-os-使用scp命令将文件拷贝到WeChat的Documents目录下"><span class="toc-number">2.7.</span> <span class="toc-text">7.将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac os,使用scp命令将文件拷贝到WeChat的Documents目录下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-重新通过ssh服务登录手机，开始砸壳"><span class="toc-number">2.8.</span> <span class="toc-text">8.重新通过ssh服务登录手机，开始砸壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-将WeChat-decrypted拷贝到Mac电脑上"><span class="toc-number">2.9.</span> <span class="toc-text">9.将WeChat.decrypted拷贝到Mac电脑上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-将WeChat-app拷贝出来待使用"><span class="toc-number">2.10.</span> <span class="toc-text">10.将WeChat.app拷贝出来待使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、注入"><span class="toc-number">3.</span> <span class="toc-text">二、注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-安装iOSOpenDev"><span class="toc-number">3.1.</span> <span class="toc-text">一.安装iOSOpenDev</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、"><span class="toc-number">3.1.1.</span> <span class="toc-text">1、</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、"><span class="toc-number">3.1.2.</span> <span class="toc-text">2、</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、"><span class="toc-number">3.1.3.</span> <span class="toc-text">3、</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、"><span class="toc-number">3.1.4.</span> <span class="toc-text">4、</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、生成dylib文件"><span class="toc-number">3.2.</span> <span class="toc-text">二、生成dylib文件</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>#<br>八九个月以前就看到了这篇文章<br><a href="http://www.jianshu.com/p/189afbe3b429" target="_blank" rel="external">一步一步实现iOS微信自动抢红包(非越狱)</a>,然后自己尝试着开始自己弄一个，但由于我的设备是ios9.3.2有点奇怪，在砸壳和打包的环节卡住了。在一两个月以前又看见有人成功了:<a href="http://yulingtianxia.com/blog/2017/02/28/Make-WeChat-Great-Again/" target="_blank" rel="external">Make WeChat Great Again</a>，这次自己也下决心弄一弄。最终还是被我搞出来了O(∩_∩)O哈！</p>
+<h2 id="已经用了很长时间了，没有被封号！"><a href="#已经用了很长时间了，没有被封号！" class="headerlink" title="已经用了很长时间了，没有被封号！"></a>已经用了很长时间了，没有被封号！</h2><p>需要准备的东西<br><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="external">dumpdecrypted</a> 砸壳用<br><a href="https://github.com/KJCracks/yololib" target="_blank" rel="external">yololib</a> 注入需要用到<br><a href="https://github.com/nygard/class-dump" target="_blank" rel="external">class-dump</a> 获取头文件用到，用于分析代码<br><a href="http://iosopendev.com/download/" target="_blank" rel="external">iOSOpenDev</a><br><a href="http://www.itools.cn/" target="_blank" rel="external">iTools</a>或者pp助手等<br>OpenSSH(通过越狱手机Cydia安装)<br>Cycript(通过越狱手机Cydia安装)<br>Command Line Tools<br>reveal(查看应用运行界面)<br>hopper(查看二进制文件，用于分析代码)<br>Xcode<br>苹果开发者证书或企业证书以及配置文件<br>一台越狱的iPhone<br>微信程序安装包</p>
+<h2 id="一、砸壳"><a href="#一、砸壳" class="headerlink" title="一、砸壳"></a>一、砸壳</h2><pre><code>获取砸壳后的文件有两种 ：1.自己手动砸壳 2.通过第三方越狱平台下载已经砸壳的微信(如itools  pp助手等)
+</code></pre><p>手动砸壳：</p>
+<h3 id="1-先在越狱软件上安装ssh插件OpenSSH-命令行下和应用交互的插件Cycript"><a href="#1-先在越狱软件上安装ssh插件OpenSSH-命令行下和应用交互的插件Cycript" class="headerlink" title="1.先在越狱软件上安装ssh插件OpenSSH  ,命令行下和应用交互的插件Cycript"></a>1.先在越狱软件上安装ssh插件OpenSSH  ,命令行下和应用交互的插件Cycript</h3><h3 id="2-让越狱手机和mac电脑在同一个局域网下-为了能够通过ssh服务从mac电脑访问手机"><a href="#2-让越狱手机和mac电脑在同一个局域网下-为了能够通过ssh服务从mac电脑访问手机" class="headerlink" title="2.让越狱手机和mac电脑在同一个局域网下(为了能够通过ssh服务从mac电脑访问手机)"></a>2.让越狱手机和mac电脑在同一个局域网下(为了能够通过ssh服务从mac电脑访问手机)</h3><h3 id="3-在mac的命令行终端-通过ssh服务登录手机-输入ssh-root-192-168-80-212-手机ip-。默认情况下的root密码是alpine。root密码可以自己修改。"><a href="#3-在mac的命令行终端-通过ssh服务登录手机-输入ssh-root-192-168-80-212-手机ip-。默认情况下的root密码是alpine。root密码可以自己修改。" class="headerlink" title="3.在mac的命令行终端  通过ssh服务登录手机  输入ssh root@192.168.80.212(手机ip)。默认情况下的root密码是alpine。root密码可以自己修改。"></a>3.在mac的命令行终端  通过ssh服务登录手机  输入ssh root@192.168.80.212(手机ip)。默认情况下的root密码是alpine。root密码可以自己修改。</h3><p><img src="http://upload-images.jianshu.io/upload_images/1716542-6cb674a834b69fbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="399D152C-81F3-4FCA-9DDF-D351FBE72C13.png"></p>
+<h3 id="4-在手机上运行微信-，-然后通过获取运行程序的命令加上管道命令-ps-e-grep-WeChat-筛选出WeChat的文件路径-并做记录稍后会用到"><a href="#4-在手机上运行微信-，-然后通过获取运行程序的命令加上管道命令-ps-e-grep-WeChat-筛选出WeChat的文件路径-并做记录稍后会用到" class="headerlink" title="4.在手机上运行微信  ， 然后通过获取运行程序的命令加上管道命令  ps -e | grep WeChat  筛选出WeChat的文件路径  并做记录稍后会用到"></a>4.在手机上运行微信  ， 然后通过获取运行程序的命令加上管道命令  ps -e | grep WeChat  筛选出WeChat的文件路径  并做记录稍后会用到</h3><p>我这里得到的路径是  /var/containers/Bundle/Application/D7DA798A-006B-4B9F-AD53-EDF4D52A1BAE/WeChat.app/WeChat(需要自己去获取)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-c4bae63074a473d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="56D7977B-3E75-4505-98B7-2B1BAFDCD991.png"></p>
+<h3 id="5-查找到WeChat的Documents路径，输入cycript-p-WeChat，进入cycript命令状态"><a href="#5-查找到WeChat的Documents路径，输入cycript-p-WeChat，进入cycript命令状态" class="headerlink" title="5.查找到WeChat的Documents路径，输入cycript -p WeChat，进入cycript命令状态"></a>5.查找到WeChat的Documents路径，输入cycript -p WeChat，进入cycript命令状态</h3><p><img src="http://upload-images.jianshu.io/upload_images/1716542-70b2c173240c2612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="57DAC8A2-AD31-4972-A921-F0C7CAAF85CA.png"></p>
+<h3 id="6-输入NSSearchPathForDirectoriesInDomains-NSDocumentDirectory-NSUserDomainMask-YES-0-，获得Documents路径-并做记录稍后会用到-需要微信在运行中，ctrl-d-cycript结束命令状态"><a href="#6-输入NSSearchPathForDirectoriesInDomains-NSDocumentDirectory-NSUserDomainMask-YES-0-，获得Documents路径-并做记录稍后会用到-需要微信在运行中，ctrl-d-cycript结束命令状态" class="headerlink" title="6.输入NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0]，获得Documents路径  并做记录稍后会用到.(需要微信在运行中，ctrl + d cycript结束命令状态"></a>6.输入NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0]，获得Documents路径  并做记录稍后会用到.(需要微信在运行中，ctrl + d cycript结束命令状态</h3><p>这里得到的路径是 <strong>/var/mobile/Containers/Data/Application/B3DFAF56-E8EE-4CAD-A56B-884C21C43049/Documents(需要自己去获取)</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-fd401594092c9901.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2711B4E5-C657-4FF4-BF00-E760207C0A00.png"></p>
+<h3 id="7-将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac-os-使用scp命令将文件拷贝到WeChat的Documents目录下"><a href="#7-将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac-os-使用scp命令将文件拷贝到WeChat的Documents目录下" class="headerlink" title="7.将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac os,使用scp命令将文件拷贝到WeChat的Documents目录下"></a>7.将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac os,使用scp命令将文件拷贝到WeChat的Documents目录下</h3><p>输入scp dumpdecrypted.dylib root@192.168.80.212:<em>**</em>Documents目录</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-0d342f1678d4862c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5F78387A-7807-4723-973F-3409D7144C17.png"></p>
+<h3 id="8-重新通过ssh服务登录手机，开始砸壳"><a href="#8-重新通过ssh服务登录手机，开始砸壳" class="headerlink" title="8.重新通过ssh服务登录手机，开始砸壳"></a>8.重新通过ssh服务登录手机，开始砸壳</h3><pre><code>使用命令 DYLD_INSERT_LIBRARIES=/Documents路径dumpdecrypted.dylib 可执行文件路径
+ 在我的手机(ios9.3.2)上执行以上命令的时候出现了以下错误：
+</code></pre><p>Killed: 9</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-9220855c92334b45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="189F2AC1-1B83-4D33-9DF7-57792510C5EB.png"></p>
+<p>查了一下资料说要在mobile模式下运行以上命令，然后我再次执行,出现如下错误<br>Failed opening: Permission denied</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-4e8a763e95e8180e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="31692734-D1E3-424A-8A14-F2BECC80DAAA.png"></p>
+<p>八九个月以前 就是这个错误阻挡我前进的  但是我不甘心   经过反复尝试  使用下面的方法砸壳成功</p>
+<p>cd到<strong>Documents目录下  以mobile身份执行命令</strong><br><strong>DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib WeChat可执行文件目录。  终于成功了</strong></p>
+<hr>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-0299b2cf217bb8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EB4A14E5-720B-48F8-853C-DC836780271A.png"></p>
+<p>命令会在当前目录下生成砸壳后的的文件 WeChat.decrypted</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-7359bfaadc89a434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="B0619C85-E3CA-4089-8A53-24FB113F15A9.png"></p>
+<h3 id="9-将WeChat-decrypted拷贝到Mac电脑上"><a href="#9-将WeChat-decrypted拷贝到Mac电脑上" class="headerlink" title="9.将WeChat.decrypted拷贝到Mac电脑上"></a>9.将WeChat.decrypted拷贝到Mac电脑上</h3><p>scp root@192.168.80.212:/var/mobile/Containers/Data/Application/B3DFAF56-E8EE-4CAD-A56B-884C21C43049/Documents/WeChat.decrypted ./ (拷贝到当前目录)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-71307674a85aa0b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="918C6A80-4C07-4040-870B-29B06403B896.png"></p>
+<p>检查砸壳是否成功 otool -l WeChat.decrypted | grep -B 2 crypt  。   cryptid 0表示成功 cryptid 1表示未成功  我的手机是5s,arm64中的cryptid是0  代表砸壳成功</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-6c49bed99e1de484.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="54FCCBEF-9FA2-4A68-BDC0-841E74D94C4E.png"></p>
+<h3 id="10-将WeChat-app拷贝出来待使用"><a href="#10-将WeChat-app拷贝出来待使用" class="headerlink" title="10.将WeChat.app拷贝出来待使用"></a>10.将WeChat.app拷贝出来待使用</h3><pre><code>这里拷贝的时候要使用  scp -r 
+</code></pre><p>scp -r root@192.168.80.212:/var/containers/Bundle/Application/D7DA798A-006B-4B9F-AD53-EDF4D52A1BAE/WeChat.app ./</p>
+<h2 id="二、注入"><a href="#二、注入" class="headerlink" title="二、注入"></a>二、注入</h2><h3 id="一-安装iOSOpenDev"><a href="#一-安装iOSOpenDev" class="headerlink" title="一.安装iOSOpenDev"></a>一.安装iOSOpenDev</h3><p><a href="http://iosopendev.com/download/" target="_blank" rel="external">http://iosopendev.com/download/</a></p>
+<p>xcode8及以上直接安装会出错  解决办法：<br>如果你们也遇到类似的问题，可以尝试下载<a href="https://github.com/provswin/Wechat-Auto-Red/blob/master/tools/iOSOpenDev_Patches.zip" target="_blank" rel="external">iOSOpenDev_Patches</a>，然后按照如下步骤：</p>
+<h4 id="1、"><a href="#1、" class="headerlink" title="1、"></a>1、</h4><p>把Specifications1文件夹重命名为Specifications放到/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/</p>
+<h4 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h4><p>把Specifications2文件夹重命名为Specifications放到/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/</p>
+<h4 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h4><p>把usr3重命名为usr放到/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/</p>
+<h4 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h4><p>安装<a href="http://iosopendev.com/download/" target="_blank" rel="external">iOSOpenDev</a></p>
+<h3 id="二、生成dylib文件"><a href="#二、生成dylib文件" class="headerlink" title="二、生成dylib文件"></a>二、生成dylib文件</h3><pre><code>新建项目的时候选择Cocoa Touch Library，项目名为 autoGetRedEnv
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/1716542-05bee24a2fa7cf2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6986DB9C-EE6F-46BC-B03E-73E5AAA232E7.png"></p>
+<p>从github中下载<a href="https://github.com/east520/AutoGetRedEnv" target="_blank" rel="external">autoGetRedEnv</a>工程源码中的CaptainHook.h和autoGetRedEnv.mm拷贝源码，复制到工程中对应文件中，完成后进行编译，即可得到libautoGetRedEnv.dylib文件。.mm文件里面抢红包的方法需要做修改，因为抢红包的方法已经改变。  不再是hook微信的AsyncOnAddMsg: MsgWrap:方法 然后调用打开红包的的方法 那么简单  </p>
+<p>新的自动获取红包的方法：</p>
+<p>hook微信的AsyncOnAddMsg: MsgWrap:  ，在这个方法中调用接收红包的方法 ReceiverQueryRedEnvelopesRequest</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">CHMethod(2, void, CMessageMgr, AsyncOnAddMsg, id, arg1, MsgWrap, id, arg2) &#123;</div><div class="line">    CHSuper(2, CMessageMgr, AsyncOnAddMsg, arg1, MsgWrap, arg2);</div><div class="line">    </div><div class="line">    NSUInteger m_uiMessageType = [arg2 m_uiMessageType];</div><div class="line">    </div><div class="line">    id m_nsFromUsr = [arg2 m_nsFromUsr];</div><div class="line">    id m_nsContent = [arg2 m_nsContent];</div><div class="line">    </div><div class="line">    switch(m_uiMessageType) &#123;</div><div class="line">            </div><div class="line">        case 49: &#123;</div><div class="line">            id logicMgr = [[objc_getClass(&quot;MMServiceCenter&quot;) defaultCenter] getService:objc_getClass(&quot;WCRedEnvelopesLogicMgr&quot;)];</div><div class="line">            id contactManager =[[objc_getClass(&quot;MMServiceCenter&quot;) defaultCenter] getService:objc_getClass(&quot;CContactMgr&quot;)];</div><div class="line">            id selfContact = [contactManager getSelfContact];</div><div class="line">            id m_nsUsrName = [selfContact m_nsUsrName];</div><div class="line">            </div><div class="line">            if ([m_nsFromUsr isEqualToString:m_nsUsrName]) &#123;//不抢自己的红包</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            if ([m_nsContent rangeOfString:@&quot;wxpay://&quot;].location != NSNotFound) &#123;</div><div class="line">                if (!kZTConfig.isAutoGrapEnv) &#123;</div><div class="line">                    return;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                NSString *nativeUrl = m_nsContent;</div><div class="line">                NSRange rangeStart = [m_nsContent rangeOfString:@&quot;wxpay://c2cbizmessagehandler/hongbao&quot;];</div><div class="line">                if (rangeStart.location != NSNotFound) &#123;</div><div class="line">                    NSUInteger locationStart = rangeStart.location;</div><div class="line">                    nativeUrl = [nativeUrl substringFromIndex:locationStart];</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                NSRange rangeEnd = [nativeUrl rangeOfString:@&quot;]]&quot;];</div><div class="line">                if (rangeEnd.location != NSNotFound) &#123;</div><div class="line">                    NSUInteger locationEnd = rangeEnd.location;</div><div class="line">                    nativeUrl = [nativeUrl substringToIndex:locationEnd];</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                NSString *naUrl = [nativeUrl substringFromIndex:[@&quot;wxpay://c2cbizmessagehandler/hongbao/receivehongbao?&quot; length]];</div><div class="line">                </div><div class="line">                NSArray *parameterPairs =[naUrl componentsSeparatedByString:@&quot;&amp;&quot;];</div><div class="line">                </div><div class="line">                NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:[parameterPairs count]];</div><div class="line">                for (NSString *currentPair in parameterPairs) &#123;</div><div class="line">                    NSRange range = [currentPair rangeOfString:@&quot;=&quot;];</div><div class="line">                    if(range.location == NSNotFound)</div><div class="line">                        continue;</div><div class="line">                    NSString *key = [currentPair substringToIndex:range.location];</div><div class="line">                    NSString *value =[currentPair substringFromIndex:range.location + 1];</div><div class="line">                    [parameters SafetySetObject:value forKey:key];</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                //红包参数...</div><div class="line">   </div><div class="line">                NSLog(@&quot;dictParam=%@&quot;, dictParam);</div><div class="line">                ((void (*)(id, SEL, NSMutableDictionary*))objc_msgSend)(logicMgr, @selector(ReceiverQueryRedEnvelopesRequest:), dictParam);</div><div class="line">                </div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">        default:</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再hook OnWCToHongbaoCommonResponse 方法，在这个方法中再去调用 打开红包的方法  OpenRedEnvelopesRequest</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">CHDeclareClass(WCRedEnvelopesLogicMgr);</div><div class="line"></div><div class="line">CHOptimizedMethod2(self, void, WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonResponse, id, arg1, Request, id, arg2) &#123;</div><div class="line">    </div><div class="line">    CHSuper2(WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonResponse, arg1, Request, arg2);</div><div class="line">    </div><div class="line">    if ([ZTUserDefaults boolForKey:kZTAutoGrapEnvKey]) &#123;</div><div class="line">        if ([NSStringFromClass([arg1 class]) isEqualToString:@&quot;HongBaoRes&quot;]) &#123;</div><div class="line">            NSData *data = [[arg1 retText] buffer];</div><div class="line">            </div><div class="line">            if (nil != data &amp;&amp; 0 &lt; [data length]) &#123;</div><div class="line">                NSError* error = nil;</div><div class="line">                id jsonObj = [NSJSONSerialization JSONObjectWithData:data</div><div class="line">                                                             options:NSJSONReadingAllowFragments</div><div class="line">                                                               error:&amp;error];</div><div class="line">                if (nil != error) &#123;</div><div class="line">                    NSLog(@&quot;error %@&quot;, [error localizedDescription]);</div><div class="line">                &#125;</div><div class="line">                else if (nil != jsonObj)</div><div class="line">                &#123;</div><div class="line">                    if ([NSJSONSerialization isValidJSONObject:jsonObj]) &#123;</div><div class="line">                        if ([jsonObj isKindOfClass:[NSDictionary class]]) &#123;</div><div class="line">                            id idTemp = jsonObj[@&quot;timingIdentifier&quot;];</div><div class="line">                            if (idTemp) &#123;</div><div class="line">                                NSMutableDictionary *params = [[ZTUserDefaults objectForKey:ZTParamKey] mutableCopy];</div><div class="line">                                [ZTUserDefaults setObject:[NSMutableDictionary dictionary] forKey:ZTParamKey];</div><div class="line">                                [params SafetySetObject:idTemp forKey:@&quot;timingIdentifier&quot;]; // &quot;timingIdentifier&quot;字段</div><div class="line">                                </div><div class="line">                                // 防止重复请求</div><div class="line">                                if (params.allKeys.count &lt; 2) &#123;</div><div class="line">                                    return;</div><div class="line">                                &#125;</div><div class="line">                                </div><div class="line">                                id logicMgr = [[objc_getClass(&quot;MMServiceCenter&quot;) defaultCenter] getService:objc_getClass(&quot;WCRedEnvelopesLogicMgr&quot;)];</div><div class="line">                                //延迟1秒抢红包</div><div class="line">                                dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);</div><div class="line">                                dispatch_after(delayTime, dispatch_get_main_queue(), ^(void) &#123;</div><div class="line">                                    ((void (*)(id, SEL, NSMutableDictionary*))objc_msgSend)(logicMgr, @selector(OpenRedEnvelopesRequest:), params);</div><div class="line">                                &#125;);</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了减少被封号的几率  在前红包的时候 不要去抢自己的红包 不要重复去抢红包  必要的可以加上抢红包的延时</p>
+<p>修改微信步数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#pragma mark - WCDeviceStepObjectCHDeclareClass(WCDeviceStepObject)////修改步数CHOptimizedMethod(0, self, unsigned long, WCDeviceStepObject, m7StepCount) &#123;    return 6666;</div><div class="line">&#125;</div><div class="line"></div><div class="line">CHOptimizedMethod(0, self, unsigned long, WCDeviceStepObject, hkStepCount) &#123;    return 6666;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">__attribute__((constructor)) static void entry()</div><div class="line">&#123;</div><div class="line">    // 微信步数    CHLoadLateClass(WCDeviceStepObject);    CHHook(0, WCDeviceStepObject, m7StepCount);    CHHook(0, WCDeviceStepObject, hkStepCount);   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>防止消息撤回 撤回消息的时候会调用onRevokeMsg  方法，我们hook这个方法  让它什么都不做</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">CHDeclareClass(CMessageMgr);</div><div class="line">CHOptimizedMethod(1, self, void, CMessageMgr, onRevokeMsg, id, value1) &#123;   </div><div class="line">&#125;</div><div class="line"></div><div class="line">__attribute__((constructor)) static void entry()&#123;    //加载CMessageMgr类</div><div class="line">    CHLoadLateClass(CMessageMgr);</div><div class="line">    // 消息防撤回</div><div class="line">    CHHook(1, CMessageMgr, onRevokeMsg);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们还可以在设置界面中加入控制开关哦 微信中的设置页面是  NewSettingViewController 我们可以在里面添加两个cell来控制  抢红包的开关  以及设置步数。在设置页面中的cell类是MMTableViewSectionInfo  通过hopper可以看到里面有很多创建cell的方法  这里我们会用到下面两个方法。对于步数的保存以及红包开关的控制，使用一个单利类来保存</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-5311288933d4cffa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EA14B06C-B893-4E99-A177-BD7740DB3DCF.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//添加抢红包以及修改步数选择</div><div class="line">CHDeclareClass(NewSettingViewController)</div><div class="line"></div><div class="line">CHOptimizedMethod0(self, void, NewSettingViewController, reloadTableData) &#123;</div><div class="line">    CHSuper0(NewSettingViewController, reloadTableData);</div><div class="line">    MMTableViewInfo *tableInfo = [self valueForKey:@&quot;m_tableViewInfo&quot;];</div><div class="line">    MMTableViewSectionInfo *sectionInfo = [objc_getClass(&quot;MMTableViewSectionInfo&quot;) sectionInfoDefaut];</div><div class="line">    </div><div class="line">    MMTableViewCellInfo *autoGrapRedEnvCellInfo = [objc_getClass(&quot;MMTableViewCellInfo&quot;)</div><div class="line">                                                   switchCellForSel:@selector(autoGrabEnvSwitchAction:)</div><div class="line">                                                   target:kZTConfig</div><div class="line">                                                   </div><div class="line">                                                   title:@&quot;自动抢红包&quot;</div><div class="line">                                                   </div><div class="line">                                                   on:kZTConfig.isAutoGrapEnv];</div><div class="line">    [sectionInfo addCell:autoGrapRedEnvCellInfo];</div><div class="line">    </div><div class="line">    MMTableViewCellInfo *setpCell = [objc_getClass(&quot;MMTableViewCellInfo&quot;) editorCellForSel:@selector(handleStepCount:)</div><div class="line">                                                                                    target:kZTConfig</div><div class="line">                                                                                       tip:@&quot;请输入步数&quot;</div><div class="line">                                                                                     focus:NO</div><div class="line">                                                                                      text:[NSString stringWithFormat:@&quot;%ld&quot;, (long)kZTConfig.stepCount]];</div><div class="line">    [sectionInfo addCell:setpCell];</div><div class="line">    </div><div class="line">    [tableInfo insertSection:sectionInfo At:0];</div><div class="line">    MMTableView *tableView = [tableInfo getTableView];</div><div class="line">    [tableView reloadData];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译得到libautoGetRedEnv.dylib文件</p>
+<p>三、注入dylib</p>
+<pre><code>1.将WeChat.decrypted  改名为WeChat,然后通过**yoyolib**向**WeChat**注入**dylib**
+</code></pre><p><strong><strong>./yololib 目标可执行文件 需注入的dylib。注入成功如下所示</strong></strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-311f85092c04a330.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="059F5C48-C8A2-4706-A373-27A023CFCE3D.png"></p>
+<p>三、重新签名打包<br>1.<br>新建Entitlements.plist<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</div><div class="line">&lt;plist version=&quot;1.0&quot;&gt;</div><div class="line">&lt;dict&gt;</div><div class="line">&lt;key&gt;application-identifier&lt;/key&gt;</div><div class="line">&lt;string&gt;证书id.com.xx.xx&lt;/string&gt;</div><div class="line">&lt;key&gt;aps-environment&lt;/key&gt;</div><div class="line">&lt;string&gt;production&lt;/string&gt;</div><div class="line">&lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;</div><div class="line">&lt;string&gt;证书id&lt;/string&gt;</div><div class="line">&lt;key&gt;get-task-allow&lt;/key&gt;</div><div class="line">&lt;false/&gt;</div><div class="line">&lt;/dict&gt;</div><div class="line">&lt;/plist&gt;</div></pre></td></tr></table></figure></p>
+<p>当中所需要的信息  可以从以往的项目的app中得到<br>/opt/iOSOpenDev/bin/ldid -e ./Demo.app/Demo</p>
+<p>2.下载配置文件</p>
+<p>从开发者网站下载一个与上面plist相匹配的配置文件，并命名为embedded.mobileprovision</p>
+<p>3.将四个文件，放入到之前备份好的WeChat.app文件夹中：<br>1.embedded.mobileprovision<br>2.libautoGetRedEnv.dylib<br>3.注入libautoGetRedEnv.dylib后的WeChat文件<br>4.Entitlements.plist</p>
+<p>这里需要注意  .plist文件 embedded.mobileprovision 以及打包需要的证书 这三个需要对应  不然打包会失败，无论尝试多少次 都会失败</p>
+<p>4.重新给微信程序签名<br>codesign -f -s 证书名字 目标文件<br>具体操作步骤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">codesign -f -s &quot;iPhone Developer:xxxxx&quot; WeChat.app/libautoGetRedEnv.dylib</div><div class="line">codesign -f -s &quot;iPhone Developer:xxxxx&quot; WeChat.app/Watch/WeChatWatchNative.app/PlugIns/WeChatWatchNativeExtension.appex</div><div class="line">codesign -f -s &quot;iPhone Developer:xxxxx&quot; WeChat.app/Watch/WeChatWatchNative.app</div><div class="line">codesign -f -s &quot;iPhone Developer:xxxxx&quot; WeChat.app/PlugIns/WeChatShareExtensionNew.appex</div><div class="line">codesign -f -s &quot;iPhone Developer:xxxxx&quot; --entitlements Entitlements.plist WeChat.app</div></pre></td></tr></table></figure></p>
+<p>打包成ipa<br>给微信重新签名后，我们就可以用xcrun来生成ipa了，具体实现如下：<br>xcrun -sdk iphoneos PackageApplication -v WeChat.app -o ~/WeChat.ipa<br>如果不想手动那样麻烦的操作的话 还可以使用签名的工具进行签名 我使用的是ios app signer</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-2f6132ca149fcbe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="81E5DCF6-8FCC-4B9E-BDDA-8BA0EF4C8DEB.png"></p>
+<p>打包出WeChat.ipa 然后使用itools安装到手机上</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-07bcd4c21847bf07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AE75B962-0D48-4C6E-9710-45CA1E8A6023.png"></p>
+<p>直接上效果</p>
+<p>自动抢红包</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-5baf449c7cbd74a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="198F81BB-EFDB-439F-AAC1-B8F0E3399A2B.png"></p>
+<p>防止群消息撤回</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-1756e2c848d70142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="27C473B4-9407-4235-B473-3C4718FD60B3.png"></p>
+<p>修改步数</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-fb78fa2ed6c227d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="324B1D90-0CA4-4D66-A92A-FB8A97709EBE.png"></p>
+<p>自动抢红包开关以及设置步数</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-e6524ef167ddf71e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="71508837055_.pic.jpg"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://zt0526.github.io/2017/10/25/ios微信逆向实战-自动抢红包、修改步数、防止消息撤回/" data-title="ios微信逆向实战--自动抢红包、修改步数、防止消息撤回 | hahaha" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/08/22/five/"  title="IOS播放GIF动画的方式及手动实现gif动画的播放">
+ <strong>下一篇：</strong><br/> 
+ <span>IOS播放GIF动画的方式及手动实现gif动画的播放
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#已经用了很长时间了，没有被封号！"><span class="toc-number">1.</span> <span class="toc-text">已经用了很长时间了，没有被封号！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、砸壳"><span class="toc-number">2.</span> <span class="toc-text">一、砸壳</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-先在越狱软件上安装ssh插件OpenSSH-命令行下和应用交互的插件Cycript"><span class="toc-number">2.1.</span> <span class="toc-text">1.先在越狱软件上安装ssh插件OpenSSH  ,命令行下和应用交互的插件Cycript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-让越狱手机和mac电脑在同一个局域网下-为了能够通过ssh服务从mac电脑访问手机"><span class="toc-number">2.2.</span> <span class="toc-text">2.让越狱手机和mac电脑在同一个局域网下(为了能够通过ssh服务从mac电脑访问手机)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-在mac的命令行终端-通过ssh服务登录手机-输入ssh-root-192-168-80-212-手机ip-。默认情况下的root密码是alpine。root密码可以自己修改。"><span class="toc-number">2.3.</span> <span class="toc-text">3.在mac的命令行终端  通过ssh服务登录手机  输入ssh root@192.168.80.212(手机ip)。默认情况下的root密码是alpine。root密码可以自己修改。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-在手机上运行微信-，-然后通过获取运行程序的命令加上管道命令-ps-e-grep-WeChat-筛选出WeChat的文件路径-并做记录稍后会用到"><span class="toc-number">2.4.</span> <span class="toc-text">4.在手机上运行微信  ， 然后通过获取运行程序的命令加上管道命令  ps -e | grep WeChat  筛选出WeChat的文件路径  并做记录稍后会用到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-查找到WeChat的Documents路径，输入cycript-p-WeChat，进入cycript命令状态"><span class="toc-number">2.5.</span> <span class="toc-text">5.查找到WeChat的Documents路径，输入cycript -p WeChat，进入cycript命令状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-输入NSSearchPathForDirectoriesInDomains-NSDocumentDirectory-NSUserDomainMask-YES-0-，获得Documents路径-并做记录稍后会用到-需要微信在运行中，ctrl-d-cycript结束命令状态"><span class="toc-number">2.6.</span> <span class="toc-text">6.输入NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0]，获得Documents路径  并做记录稍后会用到.(需要微信在运行中，ctrl + d cycript结束命令状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac-os-使用scp命令将文件拷贝到WeChat的Documents目录下"><span class="toc-number">2.7.</span> <span class="toc-text">7.将dumpdecrypted拷贝到WeChat的Documents目录下，用于砸壳。将命令行切回Mac os,使用scp命令将文件拷贝到WeChat的Documents目录下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-重新通过ssh服务登录手机，开始砸壳"><span class="toc-number">2.8.</span> <span class="toc-text">8.重新通过ssh服务登录手机，开始砸壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-将WeChat-decrypted拷贝到Mac电脑上"><span class="toc-number">2.9.</span> <span class="toc-text">9.将WeChat.decrypted拷贝到Mac电脑上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-将WeChat-app拷贝出来待使用"><span class="toc-number">2.10.</span> <span class="toc-text">10.将WeChat.app拷贝出来待使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、注入"><span class="toc-number">3.</span> <span class="toc-text">二、注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-安装iOSOpenDev"><span class="toc-number">3.1.</span> <span class="toc-text">一.安装iOSOpenDev</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、"><span class="toc-number">3.1.1.</span> <span class="toc-text">1、</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、"><span class="toc-number">3.1.2.</span> <span class="toc-text">2、</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、"><span class="toc-number">3.1.3.</span> <span class="toc-text">3、</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、"><span class="toc-number">3.1.4.</span> <span class="toc-text">4、</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、生成dylib文件"><span class="toc-number">3.2.</span> <span class="toc-text">二、生成dylib文件</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/u/a4f9219b1d6a" target="_blank" title="我的简书">我的简书</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 心之所愿 <br/>
+			无所不成</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:791525137@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="ZT0526">ZT0526</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
