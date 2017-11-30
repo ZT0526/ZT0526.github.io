@@ -11,12 +11,12 @@
     
 
     
-    <meta name="description" content="动画分享     hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){        var tag = $(item).get(0).localName;        $(item).attr(“id”,”wow”+i);">
+    <meta name="description" content="动画分享Core Animation结构继承关系  其中灰色虚线表示继承关系，红色表示遵守协议。 核心动画中所有类都遵守CAMediaTiming协议。CAAnaimation是个抽象类，不具备动画效果，必须用它的子类才有动画效果。 CAAnimationGroup是个动画组，可以同时进行缩放，旋转（同时进行多个动画）。 CATransition是转场动画，界面之间跳转（切换）都可以用转场动画。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动画分享">
 <meta property="og:url" content="https://zt0526.github.io/2017/08/21/firstArticle/index.html">
 <meta property="og:site_name" content="hahaha">
-<meta property="og:description" content="动画分享     hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){        var tag = $(item).get(0).localName;        $(item).attr(“id”,”wow”+i);">
+<meta property="og:description" content="动画分享Core Animation结构继承关系  其中灰色虚线表示继承关系，红色表示遵守协议。 核心动画中所有类都遵守CAMediaTiming协议。CAAnaimation是个抽象类，不具备动画效果，必须用它的子类才有动画效果。 CAAnimationGroup是个动画组，可以同时进行缩放，旋转（同时进行多个动画）。 CATransition是转场动画，界面之间跳转（切换）都可以用转场动画。">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-adfb456c9829406b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-b927346e11283948.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-6e299b7a4934bdfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-385974b615a1fec6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-816022e915e29bf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-15471fcddd4ea19f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-08-28T02:39:41.000Z">
+<meta property="og:updated_time" content="2017-11-30T08:03:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动画分享">
-<meta name="twitter:description" content="动画分享     hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){        var tag = $(item).get(0).localName;        $(item).attr(“id”,”wow”+i);">
+<meta name="twitter:description" content="动画分享Core Animation结构继承关系  其中灰色虚线表示继承关系，红色表示遵守协议。 核心动画中所有类都遵守CAMediaTiming协议。CAAnaimation是个抽象类，不具备动画效果，必须用它的子类才有动画效果。 CAAnimationGroup是个动画组，可以同时进行缩放，旋转（同时进行多个动画）。 CATransition是转场动画，界面之间跳转（切换）都可以用转场动画。">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716542-adfb456c9829406b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
     
@@ -113,16 +113,7 @@
 		
 		</div>
 		
-		<h1 id="动画分享"><a href="#动画分享" class="headerlink" title="动画分享"></a>动画分享</h1><link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/googlecode.min.css">
-
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
-
-<p><script>hljs.initHighlightingOnLoad();</script></p>
-<p><script type="text/javascript"><br> $(document).ready(function(){<br>      $(“h2,h3,h4,h5,h6”).each(function(i,item){<br>        var tag = $(item).get(0).localName;<br>        $(item).attr(“id”,”wow”+i);<br>        $(“#category”).append(‘<a class="new'+tag+'" href="#wow'+i+'">‘+$(this).text()+’</a></br>‘);<br>        $(“.newh2”).css(“margin-left”,0);<br>        $(“.newh3”).css(“margin-left”,20);<br>        $(“.newh4”).css(“margin-left”,40);<br>        $(“.newh5”).css(“margin-left”,60);<br>        $(“.newh6”).css(“margin-left”,80);<br>      });<br> });<br></script></p>
-<div id="category"></div>
-
-<h3 id="Core-Animation结构"><a href="#Core-Animation结构" class="headerlink" title="Core Animation结构"></a>Core Animation结构</h3><p>继承关系</p>
+		<h1 id="动画分享"><a href="#动画分享" class="headerlink" title="动画分享"></a>动画分享</h1><h3 id="Core-Animation结构"><a href="#Core-Animation结构" class="headerlink" title="Core Animation结构"></a>Core Animation结构</h3><p>继承关系</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1716542-adfb456c9829406b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="626233-43bafe84d8aee5bf.png"></p>
 <p>其中灰色虚线表示继承关系，红色表示遵守协议。</p>
 <p>核心动画中所有类都遵守CAMediaTiming协议。<br>CAAnaimation是个抽象类，不具备动画效果，必须用它的子类才有动画效果。</p>

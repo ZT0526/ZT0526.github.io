@@ -11,12 +11,12 @@
     
 
     
-    <meta name="description" content="hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){        var tag = $(item).get(0).localName;        $(item).attr(“id”,”wow”+i);">
+    <meta name="description" content="写在前面：本文会在最开头将苹果官方的文档Understanding and Analyzing Application Crash Reports进行翻译,但这不仅仅是一篇翻译的文章，本文会让大家更加全面的了解ios的崩溃报告的获取、分析、用途。翻译的时候我会结合自己以往的使用经验来进行翻译。 理解和分析应用程序崩溃报告 重要提示：本文档包含有关开发中的一个接口或技术的初步信息。此信息将被更改，并">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解和分析应用程序崩溃报告">
 <meta property="og:url" content="https://zt0526.github.io/2017/08/22/thirdArticle/index.html">
 <meta property="og:site_name" content="hahaha">
-<meta property="og:description" content="hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){        var tag = $(item).get(0).localName;        $(item).attr(“id”,”wow”+i);">
+<meta property="og:description" content="写在前面：本文会在最开头将苹果官方的文档Understanding and Analyzing Application Crash Reports进行翻译,但这不仅仅是一篇翻译的文章，本文会让大家更加全面的了解ios的崩溃报告的获取、分析、用途。翻译的时候我会结合自己以往的使用经验来进行翻译。 理解和分析应用程序崩溃报告 重要提示：本文档包含有关开发中的一个接口或技术的初步信息。此信息将被更改，并">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-41671bb546c2be61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-da1b5ebb9f45a979.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-b92d2c3b7e4f5e85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -40,10 +40,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-ec82ba3e8db570b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-1c2964ec6ead1bbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-4eea0206ed055974.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-08-28T02:52:31.000Z">
+<meta property="og:updated_time" content="2017-11-30T08:02:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解和分析应用程序崩溃报告">
-<meta name="twitter:description" content="hljs.initHighlightingOnLoad();  $(document).ready(function(){      $(“h2,h3,h4,h5,h6”).each(function(i,item){        var tag = $(item).get(0).localName;        $(item).attr(“id”,”wow”+i);">
+<meta name="twitter:description" content="写在前面：本文会在最开头将苹果官方的文档Understanding and Analyzing Application Crash Reports进行翻译,但这不仅仅是一篇翻译的文章，本文会让大家更加全面的了解ios的崩溃报告的获取、分析、用途。翻译的时候我会结合自己以往的使用经验来进行翻译。 理解和分析应用程序崩溃报告 重要提示：本文档包含有关开发中的一个接口或技术的初步信息。此信息将被更改，并">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716542-41671bb546c2be61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
     
@@ -124,16 +124,7 @@
 		
 		</div>
 		
-		<link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/googlecode.min.css">
-
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
-
-<p><script>hljs.initHighlightingOnLoad();</script></p>
-<p><script type="text/javascript"><br> $(document).ready(function(){<br>      $(“h2,h3,h4,h5,h6”).each(function(i,item){<br>        var tag = $(item).get(0).localName;<br>        $(item).attr(“id”,”wow”+i);<br>        $(“#category”).append(‘<a class="new'+tag+'" href="#wow'+i+'">‘+$(this).text()+’</a></br>‘);<br>        $(“.newh2”).css(“margin-left”,0);<br>        $(“.newh3”).css(“margin-left”,20);<br>        $(“.newh4”).css(“margin-left”,40);<br>        $(“.newh5”).css(“margin-left”,60);<br>        $(“.newh6”).css(“margin-left”,80);<br>      });<br> });<br></script></p>
-<div id="category"></div>
-
-<p>写在前面：本文会在最开头将苹果官方的文档<a href="https://developer.apple.com/library/prerelease/content/technotes/tn2151/_index.html#//apple_ref/doc/uid/DTS40008184-CH1-ANALYZING_CRASH_REPORTS" target="_blank" rel="external">Understanding and Analyzing Application Crash Reports</a>进行翻译,但这不仅仅是一篇翻译的文章，本文会让大家更加全面的了解ios的崩溃报告的获取、分析、用途。翻译的时候我会结合自己以往的使用经验来进行翻译。</p>
+		<p>写在前面：本文会在最开头将苹果官方的文档<a href="https://developer.apple.com/library/prerelease/content/technotes/tn2151/_index.html#//apple_ref/doc/uid/DTS40008184-CH1-ANALYZING_CRASH_REPORTS" target="_blank" rel="external">Understanding and Analyzing Application Crash Reports</a>进行翻译,但这不仅仅是一篇翻译的文章，本文会让大家更加全面的了解ios的崩溃报告的获取、分析、用途。翻译的时候我会结合自己以往的使用经验来进行翻译。</p>
 <p>理解和分析应用程序崩溃报告</p>
 <p>重要提示：本文档包含有关开发中的一个接口或技术的初步信息。此信息将被更改，并根据本文档实现的软件应该用最终的操作系统软件进行测试。</p>
 <p>当应用程序崩溃时，创建了一个崩溃报告，这是非常有用的了解什么造成的崩溃。本文件包含重要的信息，如何symbolicate，理解和解释的崩溃报告。</p>
