@@ -1,0 +1,458 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>记一次特殊的duplicate symbol报错，以及c++头文件找不到的报错 | hahaha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZT0526">
+    
+
+    
+    <meta name="description" content="这次在集成第三方sdk的时候遇到的duplicate symbol报错十分诡异，当我的项目中有一个.mm文件的时候，再新建一个.mm文件都会有这样的报错。  一、通常一般遇到这种错误都是由一下这几点引起的:12341.在使用import 引入头文件时,由于疏忽,误引入.m 文件2.在两个文件中存在相同的C语言定义的全局变量名或是函数名3.在build phases里的compile sources">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次特殊的duplicate symbol报错，以及c++头文件找不到的报错">
+<meta property="og:url" content="https://zt0526.github.io/2018/01/10/记一次特殊的duplicate-symbol报错，以及c-头文件找不到的报错/index.html">
+<meta property="og:site_name" content="hahaha">
+<meta property="og:description" content="这次在集成第三方sdk的时候遇到的duplicate symbol报错十分诡异，当我的项目中有一个.mm文件的时候，再新建一个.mm文件都会有这样的报错。  一、通常一般遇到这种错误都是由一下这几点引起的:12341.在使用import 引入头文件时,由于疏忽,误引入.m 文件2.在两个文件中存在相同的C语言定义的全局变量名或是函数名3.在build phases里的compile sources">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-ba2c0b7a98f32be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-3f13dc1e4f4638fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-c43624b7b0871348.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-416e4e692fde70b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716542-d744c5e84700ff62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-10T12:28:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一次特殊的duplicate symbol报错，以及c++头文件找不到的报错">
+<meta name="twitter:description" content="这次在集成第三方sdk的时候遇到的duplicate symbol报错十分诡异，当我的项目中有一个.mm文件的时候，再新建一个.mm文件都会有这样的报错。  一、通常一般遇到这种错误都是由一下这几点引起的:12341.在使用import 引入头文件时,由于疏忽,误引入.m 文件2.在两个文件中存在相同的C语言定义的全局变量名或是函数名3.在build phases里的compile sources">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716542-ba2c0b7a98f32be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+    
+    <link rel="alternative" href="/atom.xml" title="hahaha" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="hahaha" title="hahaha"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="hahaha">hahaha</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zt0526.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/01/10/记一次特殊的duplicate-symbol报错，以及c-头文件找不到的报错/" title="记一次特殊的duplicate symbol报错，以及c++头文件找不到的报错" itemprop="url">记一次特殊的duplicate symbol报错，以及c++头文件找不到的报错</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZT0526" target="_blank" itemprop="author">ZT0526</a>
+		
+  <p class="article-time">
+    <time datetime="2018-01-10T12:27:40.000Z" itemprop="datePublished"> Published 2018-01-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>这次在集成第三方sdk的时候遇到的duplicate symbol报错十分诡异，当我的项目中有一个.mm文件的时候，再新建一个.mm文件都会有这样的报错。</p>
+<p> 一、通常一般遇到这种错误都是由一下这几点引起的:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1.在使用import 引入头文件时,由于疏忽,误引入.m 文件</div><div class="line">2.在两个文件中存在相同的C语言定义的全局变量名或是函数名</div><div class="line">3.在build phases里的compile sources里面有重复的文件 </div><div class="line">4.引入的多个库文件中有相同的部分</div></pre></td></tr></table></figure></p>
+<p>二、针对上面的几点，分别有以下改正的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.将import的.m文件改为 import相应的头文件即.h文件</div><div class="line">2.将相同的全局变量改为不同的名字  将重名的函数改为不同的名字</div><div class="line">3.将compile sources里面的重复文件删除多余的，只保留一个</div></pre></td></tr></table></figure></p>
+<p>针对上面的第四点，可以采取将多个库文件合并，或者将库文件中有重复的部门删除掉，只保留一份</p>
+<p>比如我遇到了下面的错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">duplicate symbol _OBJC_IVAR_$_SSKeychainQuery._service in:</div><div class="line">    /Users/xxx/Desktop/Desk/项目/xxx/XunFang_branch3.0/Vendors/haikang/SDK/VMSNetSDK/lib/libXCUtilityStatic.a(SSKeychainQuery.o)</div><div class="line">    /Users/xxx/Library/Developer/Xcode/DerivedData/Fieldworks-dqsfehkzzjszdiegdupnszgaazsk/Build/Products/Debug-iphoneos/libXBIMKit.a(SSKeychainQuery.o)</div><div class="line">duplicate symbol _OBJC_IVAR_$_SSKeychainQuery._passwordData in:</div><div class="line">    /Users/xxx/Desktop/Desk/项目/xxx/XunFang_branch3.0/Vendors/haikang/SDK/VMSNetSDK/lib/libXCUtilityStatic.a(SSKeychainQuery.o)</div><div class="line">    /Users/xxx/Library/Developer/Xcode/DerivedData/Fieldworks-dqsfehkzzjszdiegdupnszgaazsk/Build/Products/Debug-iphoneos/libXBIMKit.a(SSKeychainQuery.o)</div><div class="line">duplicate symbol _OBJC_CLASS_$_DDAbstractDatabaseLogger in:</div><div class="line">    /Users/xxx/Desktop/Desk/项目/xxx/XunFang_branch3.0/Vendors/haikang/SDK/VMSNetSDK/lib/libXCUtilityStatic.a(DDAbstractDatabaseLogger.o)</div><div class="line">    /Users/xxx/Library/Developer/Xcode/DerivedData/Fieldworks-dqsfehkzzjszdiegdupnszgaazsk/Build/Products/Debug-iphoneos/libXBIMKit.a(DDAbstractDatabaseLogger.o)</div><div class="line">duplicate symbol _OBJC_METACLASS_$_DDAbstractDatabaseLogger in:</div><div class="line">    /Users/zhaotian/Desktop/Desk/项目/xxx/XunFang_branch3.0/Vendors/haikang/SDK/VMSNetSDK/lib/libXCUtilityStatic.a(DDAbstractDatabaseLogger.o)</div><div class="line">    /Users/zhaotian/Library/Developer/Xcode/DerivedData/Fieldworks-dqsfehkzzjszdiegdupnszgaazsk/Build/Products/Debug-iphoneos/libXBIMKit.a(DDAbstractDatabaseLogger.o)</div><div class="line">ld: 81 duplicate symbols for architecture arm64</div><div class="line">clang: error: linker command failed with exit code 1 (use -v to see invocation)</div><div class="line">Showing first 200 warnings only</div></pre></td></tr></table></figure></p>
+<p>1.根据错误的信息来看，两个静态库文件中有重复的类。我这里解决的办法是将其中一个静态库中把重复的类删除掉。</p>
+<p>2.使用lipo -info命令来查看静态库支持的指令集<br><img src="http://upload-images.jianshu.io/upload_images/1716542-ba2c0b7a98f32be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="支持的指令集"></p>
+<p>由于我现在xcode9.2打出的包都是 armv7 arm64的，所以这里只需要针对这两个指令集来分别操作</p>
+<p>3.先将库文件拆分成不同指令集的<br><img src="http://upload-images.jianshu.io/upload_images/1716542-3f13dc1e4f4638fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ADB24C48-6100-4478-B7DA-708C25FDCAA9.png"></p>
+<p>4.然后分别删除armv7指令集  和 arm64指令集下重复的文件<br>使用Ar -dv xxx(库文件)   xxx.o(重复的文件) 命令来删除</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716542-c43624b7b0871348.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="删除重复部分"></p>
+<p>想查看库文件中有哪些文件可以使用 ar - t 命令</p>
+<p>5.合并静态库<br><img src="http://upload-images.jianshu.io/upload_images/1716542-416e4e692fde70b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="合并静态库"></p>
+<p>然而我遇到的duplicate symbol错误都不是上面的原因造成的，最开始我在报错的类里面搜索“duplicate symbol _StartTime in”中的StartTime这个关键词的时候，没有搜索到有这个关键词。而且奇怪的是当我项目中有一个.mm文件的时候，再新建一个.mm文件都会有这样的报错。真是很诡异！</p>
+<p>报错信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">duplicate symbol _StartTime in:</div><div class="line">    /Users/xxxx/Library/Developer/Xcode/DerivedData/Fieldworks-dqsfehkzzjszdiegdupnszgaazsk/Build/Intermediates.noindex/Fieldworks.build/Debug-iphoneos/Fieldworks.build/Objects-normal/arm64/FWtest1.o</div><div class="line">/Users/xxxx/Library/Developer/Xcode/DerivedData/Fieldworks-dqsfehkzzjszdiegdupnszgaazsk/Build/Intermediates.noindex/Fieldworks.build/Debug-iphoneos/Fieldworks.build/Objects-normal/arm64/FWtest2.o</div><div class="line">ld: 1 duplicate symbol for architecture arm64</div><div class="line">clang: error: linker command failed with exit code 1 (use -v to see invocation)</div></pre></td></tr></table></figure></p>
+<p>在困扰了很久之后我开始在项目中搜索StartTime这个关键词，我发现在很多类中都有这个关键词，然后一个个的排查。终于在一个类中找到了一个可以的地方。有个相同名称的全局变量，在被其他类使用的时候，没有使用extern来声明可以被其他的类使用,最后在.h文件中在该变量前面加上FOUNDATION_EXTERN关键字后这个问题才被解决😄</p>
+<p>此外，在这次集成三方sdk时候，由于三方sdk是用oc和c++混编的。集成的时候很容易报错，比如说下面这个报错：<br><img src="http://upload-images.jianshu.io/upload_images/1716542-d744c5e84700ff62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="320F8D67-3E7B-420B-8F20-B79BFAFD7BC9.png"></p>
+<p>报错的信息显示找不到c++文件”sstream”。首先明确的一点就是编译器会去识别.mm文件是oc与c++混编的，oc与c++混编不需要什么特殊的设置，在这里加载c++的头文件是没有问题的。但是需要注意一点的是在加在c++的库文件的时候，需要在所有使用到包含了这个头文件的类文件都要使用.mm后缀。<br>比如我项目中有一个叫tom的类,在该类中引用类头文件”sstream”，这时候tom的.m文件后缀应该改为.mm。有一个jerry的类，引用了tom这个类，那么这时候jerry的.m文件应该改为.mm文件。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://zt0526.github.io/2018/01/10/记一次特殊的duplicate-symbol报错，以及c-头文件找不到的报错/" data-title="记一次特殊的duplicate symbol报错，以及c++头文件找不到的报错 | hahaha" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/11/30/python爬虫之搜索简书文章/"  title="python爬虫之搜索简书文章">
+ <strong>下一篇：</strong><br/> 
+ <span>python爬虫之搜索简书文章
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/u/a4f9219b1d6a" target="_blank" title="我的简书">我的简书</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 心之所愿 <br/>
+			无所不成</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:791525137@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="ZT0526">ZT0526</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
